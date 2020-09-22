@@ -1,0 +1,30 @@
+name: CI & CD
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  Build-and-Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install & build
+        run: |
+          npm install
+          npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PUBLISH_DIR: ./dist
+          PUBLISH_BRANCH: gh-pages
+          PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          forceOrphan: true

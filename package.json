@@ -1,0 +1,63 @@
+{
+  "name": "@jscig/ows",
+  "version": "1.0.0",
+  "license": "AGPL-3.0",
+  "description": "Official Web site of JavaScript Chinese Interest Group",
+  "author": "shiy2008@gmail.com",
+  "homepage": "https://jscig.github.io/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSCIG/jscig.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JSCIG/jscig.github.io/issues"
+  },
+  "main": "source/index.html",
+  "dependencies": {
+    "boot-cell": "^1.1.0",
+    "bootstrap-icons": "^1.0.0",
+    "browser-unhandled-rejection": "^1.0.2",
+    "cell-router": "^2.0.1",
+    "web-cell": "^2.2.0",
+    "web-utility": "^1.8.0"
+  },
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "parcel": "^1.12.4",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3",
+    "workbox-cli": "^4.3.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid"
+  },
+  "lint-staged": {
+    "*.{html,md,css,less,json,yml,js,ts,tsx}": [
+      "prettier --write"
+    ]
+  },
+  "postcss": {
+    "modules": true,
+    "plugins": {
+      "autoprefixer": {
+        "grid": true
+      }
+    }
+  },
+  "scripts": {
+    "test": "lint-staged",
+    "start": "workbox generateSW  &&  parcel source/index.html --open",
+    "pack-dist": "parcel build source/index.html --public-url .",
+    "pack-sw": "rm -f dist/sw.js.map  &&  workbox generateSW",
+    "build": "rm -rf dist/  &&  npm run pack-dist  &&  npm run pack-sw"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm run build"
+    }
+  }
+}
