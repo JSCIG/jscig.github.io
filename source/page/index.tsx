@@ -53,6 +53,7 @@ export function PageFrame() {
             JavaScript 中文兴趣组
           </>
         }
+        menuAlign="end"
       >
         {menu.map(({ title, ...props }) => (
           <NavLink {...props}>{title}</NavLink>

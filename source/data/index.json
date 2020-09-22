@@ -1177,7 +1177,7 @@
     "stage": 1,
     "name": "Array.prototype.unique()",
     "link": "https://github.com/TechQuery/array-unique-proposal",
-    "authors": ["[TechQuery][", "]"],
+    "authors": ["TechQuery"],
     "champions": ["Jack Works"],
     "updated_at": "July 2020"
   },
