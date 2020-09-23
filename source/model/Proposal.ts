@@ -49,6 +49,9 @@ export type ProposalSortKey =
 
 export class ProposalModel {
   @observable
+  loading = false;
+
+  @observable
   list: Proposal[] = [];
 
   @observable
@@ -64,14 +67,20 @@ export class ProposalModel {
   }
 
   async getList() {
+    this.loading = true;
+
     const repositories = await fetchRepositories();
 
-    return (this.list = proposals.map(({ link, ...rest }) => {
+    this.list = proposals.map(({ link, ...rest }) => {
       const { stargazers_count: star_count, open_issues_count: issue_count } =
         repositories.find(({ html_url }) => html_url === link) || {};
 
       return { ...rest, link, star_count, issue_count } as Proposal;
-    }));
+    });
+
+    this.loading = false;
+
+    return this.list;
   }
 
   sortBy(key: ProposalSortKey) {

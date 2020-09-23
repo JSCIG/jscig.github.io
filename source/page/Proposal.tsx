@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import { PageProps } from 'cell-router/source';
 import { Status } from 'boot-cell/source/utility/constant';
+import { SpinnerBox } from 'boot-cell/source/Prompt/Spinner';
 import { Table, TableRow } from 'boot-cell/source/Content/Table';
 
 import { FilterLink } from '../component/FilterLink';
@@ -54,7 +55,7 @@ export interface ProposalPageProps extends PageProps {
 
 export const ProposalPage = observer(
   ({ stage, author, champion, published_at }: ProposalPageProps) => {
-    const { list } = proposal;
+    const { list, loading } = proposal;
     const data =
       stage != null
         ? list.filter(item => item.stage === stage)
@@ -67,7 +68,7 @@ export const ProposalPage = observer(
         : list;
 
     return (
-      <main className={style.box}>
+      <SpinnerBox className={style.box} cover={loading}>
         <h1 className="text-center py-3">ECMAScript 标准提案</h1>
 
         <p className="text-center text-muted">
@@ -224,7 +225,7 @@ export const ProposalPage = observer(
             }
           )}
         </Table>
-      </main>
+      </SpinnerBox>
     );
   }
 );

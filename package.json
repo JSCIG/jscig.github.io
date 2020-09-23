@@ -1,7 +1,8 @@
 {
   "name": "@jscig/ows",
-  "version": "1.0.0",
-  "license": "AGPL-3.0",
+  "version": "0.5.0",
+  "private": true,
+  "license": "UNLICENSED",
   "description": "Official Web site of JavaScript Chinese Interest Group",
   "author": "shiy2008@gmail.com",
   "homepage": "https://jscig.github.io/",

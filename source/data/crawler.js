@@ -4,7 +4,7 @@
 //
 //  [Example code]  copy(JSON.stringify(getProposals(3, $0), null, 4))
 //
-//    (c)2020  @TechQuery
+//    (c)2020  @TechQuery @JSCIG
 
 function getNames({ childNodes }) {
   return Array.from(
