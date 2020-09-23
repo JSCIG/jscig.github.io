@@ -16,7 +16,7 @@ function getNames({ childNodes }) {
 function getProposals(stage, { children }) {
   return Array.from(children, ({ children }) => {
     const repository = children[0].firstElementChild,
-      timestamp = children[4]?.firstElementChild;
+      timestamp = (stage === 3 ? children[4] : children[3])?.firstElementChild;
 
     return {
       stage,
@@ -24,9 +24,10 @@ function getProposals(stage, { children }) {
       link: repository.href,
       authors: getNames(children[1]),
       champions: getNames(children[2]),
-      test_link: children[3].firstElementChild.href,
-      updated_at: timestamp?.textContent,
+      test_link: stage === 3 ? children[3].firstElementChild.href : undefined,
       meeting_link: timestamp?.href,
+      updated_at: timestamp?.textContent,
+      published_at: stage === 4 ? children[4].textContent : undefined
     };
   });
 }

@@ -14,11 +14,7 @@ const menu: NavLinkProps[] = [
       target: '_blank',
       href: 'https://github.com/JSCIG/es-discuss/issues'
     },
-    {
-      title: '开放组织',
-      target: '_blank',
-      href: 'https://github.com/JSCIG/jscig.github.io'
-    },
+    { title: '开放组织', target: '_blank', href: 'https://github.com/JSCIG' },
     {
       title: '正式标准',
       target: '_blank',

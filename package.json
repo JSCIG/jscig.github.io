@@ -19,6 +19,7 @@
     "bootstrap-icons": "^1.0.0",
     "browser-unhandled-rejection": "^1.0.2",
     "cell-router": "^2.0.1",
+    "classnames": "^2.2.6",
     "mobx": "^5.15.7",
     "mobx-web-cell": "^0.3.2",
     "web-cell": "^2.2.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@octokit/types": "^5.5.0",
+    "@types/classnames": "^2.2.10",
     "autoprefixer": "^9.8.6",
     "husky": "^4.3.0",
     "less": "^3.12.2",

@@ -9,5 +9,17 @@ JavaScript 中文讨论组致力于提供一个加强中国 JavaScript 社区对
 
 - [讨论](https://github.com/JSCIG/es-discuss/issues)
 
+## 官网开发
+
+本网站是一个基于 [WebCell v2](https://web-cell.dev/) 的纯 Web 前端项目，参与开发的基本命令如下：
+
+```shell
+cd ~/Desktop
+git clone https://github.com/JSCIG/jscig.github.io.git ./JSCIG
+cd ./JSCIG
+npm install
+npm start
+```
+
 [1]: https://david-dm.org/JSCIG/jscig.github.io
 [2]: https://github.com/JSCIG/jscig.github.io/actions

@@ -1,6 +1,7 @@
 import { createCell } from 'web-cell';
 import { observer } from 'mobx-web-cell';
 import { formatDate } from 'web-utility/source/date';
+import classNames from 'classnames';
 
 import { PageProps } from 'cell-router/source';
 import { Status } from 'boot-cell/source/utility/constant';
@@ -19,22 +20,29 @@ const StageMap = [
 ];
 
 function renderNames(filter: 'author' | 'champion', list: string[]) {
-  return list[1] ? (
-    <ul className="d-inline-block m-0 text-left">
-      {list.map(author => (
-        <li>
-          <FilterLink path="proposals" filter={filter} value={author} />
-        </li>
-      ))}
-    </ul>
-  ) : list[0] ? (
-    <FilterLink
-      className="stretched-link"
-      path="proposals"
-      filter={filter}
-      value={list[0]}
-    />
-  ) : null;
+  switch (list.length) {
+    case 0:
+      return null;
+    case 1:
+      return (
+        <FilterLink
+          className="stretched-link"
+          path="proposals"
+          filter={filter}
+          value={list[0]}
+        />
+      );
+    default:
+      return (
+        <ul className="d-inline-block m-0 text-left">
+          {list.map(author => (
+            <li>
+              <FilterLink path="proposals" filter={filter} value={author} />
+            </li>
+          ))}
+        </ul>
+      );
+  }
 }
 
 export interface ProposalPageProps extends PageProps {
@@ -71,14 +79,64 @@ export const ProposalPage = observer(
         </p>
         <Table center striped hover>
           <TableRow type="head" className="text-nowrap">
-            <th>进程</th>
-            <th>名称</th>
+            <th
+              className={classNames(
+                'user-select-none',
+                proposal.sortKey === 'stage' && 'bg-info'
+              )}
+              onClick={() => (proposal.sortKey = 'stage')}
+            >
+              进程
+            </th>
+            <th
+              className={classNames(
+                'user-select-none',
+                proposal.sortKey === 'name' && 'bg-info'
+              )}
+              onClick={() => (proposal.sortKey = 'name')}
+            >
+              名称
+            </th>
             <th>作者</th>
             <th>责编</th>
-            <th title="星标数">⭐</th>
-            <th title="尚在讨论的问题数">📃</th>
-            <th>最近更新</th>
-            <th>定案时间</th>
+            <th
+              className={classNames(
+                'user-select-none',
+                proposal.sortKey === 'star_count' && 'bg-info'
+              )}
+              onClick={() => (proposal.sortKey = 'star_count')}
+              title="星标数"
+            >
+              ⭐
+            </th>
+            <th
+              className={classNames(
+                'user-select-none',
+                proposal.sortKey === 'issue_count' && 'bg-info'
+              )}
+              onClick={() => (proposal.sortKey = 'issue_count')}
+              title="尚在讨论的问题数"
+            >
+              📃
+            </th>
+            <th
+              className={classNames(
+                'user-select-none',
+                proposal.sortKey === 'updated_at' && 'bg-info'
+              )}
+              onClick={() => (proposal.sortKey = 'updated_at')}
+            >
+              最近更新
+            </th>
+            <th
+              className={classNames(
+                'user-select-none',
+                proposal.sortKey === 'published_at' && 'bg-info'
+              )}
+              onClick={() => (proposal.sortKey = 'published_at')}
+            >
+              定案时间
+            </th>
           </TableRow>
           {data.map(
             ({
@@ -96,7 +154,7 @@ export const ProposalPage = observer(
               const updated = formatDate(updated_at, 'YYYY 年 M 月');
 
               return (
-                <TableRow key={link}>
+                <TableRow>
                   <td>
                     <FilterLink
                       className="stretched-link"

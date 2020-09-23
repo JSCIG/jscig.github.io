@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, reaction } from 'mobx';
 import { ReposListForOrgResponseData } from '@octokit/types';
 
 import { github } from './service';
@@ -39,15 +39,31 @@ export interface Proposal {
   issue_count: number;
 }
 
+export type ProposalSortKey =
+  | 'stage'
+  | 'name'
+  | 'star_count'
+  | 'issue_count'
+  | 'updated_at'
+  | 'published_at';
+
 export class ProposalModel {
   @observable
   list: Proposal[] = [];
 
+  @observable
+  sortKey: ProposalSortKey;
+
   constructor() {
-    this.boot();
+    this.getList();
+
+    reaction(
+      () => this.sortKey,
+      key => this.sortBy(key)
+    );
   }
 
-  async boot() {
+  async getList() {
     const repositories = await fetchRepositories();
 
     return (this.list = proposals.map(({ link, ...rest }) => {
@@ -56,5 +72,20 @@ export class ProposalModel {
 
       return { ...rest, link, star_count, issue_count } as Proposal;
     }));
+  }
+
+  sortBy(key: ProposalSortKey) {
+    return (this.list = this.list.sort(
+      ({ [key]: A = '' }, { [key]: B = '' }) => {
+        switch (typeof B) {
+          case 'number':
+            return B - (A as number);
+          case 'string':
+            return B.localeCompare(A as string);
+          default:
+            return key.endsWith('_at') ? +new Date(B) - +new Date(A) : 0;
+        }
+      }
+    ));
   }
 }
