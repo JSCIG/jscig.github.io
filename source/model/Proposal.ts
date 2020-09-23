@@ -58,8 +58,6 @@ export class ProposalModel {
   sortKey: ProposalSortKey;
 
   constructor() {
-    this.getList();
-
     reaction(
       () => this.sortKey,
       key => this.sortBy(key)
