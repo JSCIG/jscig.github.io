@@ -1,0 +1,22 @@
+[
+  {
+    "name": "360 技术集团",
+    "logo": "https://www.ecma-international.org/images/members/AM/Qihoo%20360%20logo.gif",
+    "link": "https://www.360.cn/"
+  },
+  {
+    "name": "阿里巴巴集团",
+    "logo": "https://www.ecma-international.org/images/members/AM/Alibaba%20logo.gif",
+    "link": "https://www.alibabagroup.com/"
+  },
+  {
+    "name": "腾讯",
+    "logo": "https://www.ecma-international.org/images/members/AM/tencent_logo.gif",
+    "link": "https://www.tencent.com/"
+  },
+  {
+    "name": "Suji Tech",
+    "logo": "https://www.ecma-international.org/images/members/SPC/Sujitech%20logo.gif",
+    "link": "https://sujitech.com/"
+  }
+]

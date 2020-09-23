@@ -14,7 +14,11 @@ const menu: NavLinkProps[] = [
       target: '_blank',
       href: 'https://github.com/JSCIG/es-discuss/issues'
     },
-    { title: '技术委员会', target: '_blank', href: 'https://tc39.es/' },
+    {
+      title: '开放组织',
+      target: '_blank',
+      href: 'https://github.com/JSCIG/jscig.github.io'
+    },
     {
       title: '正式标准',
       target: '_blank',
@@ -27,11 +31,7 @@ const menu: NavLinkProps[] = [
       href: 'https://kangax.github.io/compat-table/es6/'
     },
     { title: 'ES 6 学习', target: '_blank', href: 'http://es6-features.org/' },
-    {
-      title: '开源代码',
-      target: '_blank',
-      href: 'https://github.com/JSCIG/jscig.github.io'
-    }
+    { title: '技术委员会', target: '_blank', href: 'https://tc39.es/' }
   ],
   routes: Route[] = [
     { paths: [''], component: MainPage },
