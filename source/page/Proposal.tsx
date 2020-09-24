@@ -263,7 +263,11 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             {author && `${author} 提交的`}
             {champion && `${champion} 推动的`}
             {published_at && `定案于 ${published_at} 的`}
-            活跃提案共计 <strong>{data.length}</strong> 个
+            活跃提案共计{' '}
+            <strong>
+              {data.filter(({ stage }) => stage > -1 && stage < 4).length}
+            </strong>{' '}
+            个
           </p>
           <Table center striped hover>
             {this.renderHead()}
