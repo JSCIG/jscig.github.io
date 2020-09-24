@@ -21,6 +21,7 @@ import { proposal, Proposal } from '../model';
 
 const StageMap = [
   Status.secondary,
+  Status.info,
   Status.danger,
   Status.warning,
   Status.primary,
@@ -90,9 +91,9 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'star_count' && 'bg-info'
+            sortKey === 'stargazers_count' && 'bg-info'
           )}
-          onClick={() => (proposal.sortKey = 'star_count')}
+          onClick={() => (proposal.sortKey = 'stargazers_count')}
           title="星标数"
         >
           ⭐
@@ -100,13 +101,14 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'issue_count' && 'bg-info'
+            sortKey === 'open_issues_count' && 'bg-info'
           )}
-          onClick={() => (proposal.sortKey = 'issue_count')}
+          onClick={() => (proposal.sortKey = 'open_issues_count')}
           title="尚在讨论的问题数"
         >
           📃
         </th>
+        <th>测试</th>
         <th
           className={classNames(
             'user-select-none',
@@ -161,9 +163,10 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
     name,
     authors,
     champions,
-    star_count,
-    issue_count,
-    meeting_link,
+    stargazers_count,
+    open_issues_count,
+    tests,
+    meeting,
     updated_at,
     published_at
   }: Proposal) => {
@@ -175,12 +178,12 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
           <FilterLink
             className="stretched-link"
             type="badge"
-            color={StageMap[stage]}
+            color={StageMap[stage + 1]}
             path="proposals"
             filter="stage"
             value={stage}
           >
-            Stage {stage}
+            {stage < 0 ? 'Inactive' : `Stage ${stage}`}
           </FilterLink>
         </td>
         <td>
@@ -188,49 +191,51 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             {name}
           </a>
         </td>
-        <td>{this.renderNames('author', authors)}</td>
-        <td>{this.renderNames('champion', champions)}</td>
+        <td>{authors && this.renderNames('author', authors)}</td>
+        <td>{champions && this.renderNames('champion', champions)}</td>
         <td>
-          {star_count != null ? (
+          {stargazers_count != null ? (
             <a
               className="stretched-link"
               target="_blank"
               href={link + '/stargazers'}
             >
-              {star_count}
+              {stargazers_count}
             </a>
           ) : null}
         </td>
         <td>
-          {issue_count != null ? (
+          {open_issues_count != null ? (
             <a
               className="stretched-link"
               target="_blank"
               href={link + '/issues'}
             >
-              {issue_count}
+              {open_issues_count}
             </a>
           ) : null}
         </td>
+        <td>
+          {tests && (
+            <a
+              className="stretched-link text-success"
+              target="_blank"
+              href={tests}
+            >
+              √
+            </a>
+          )}
+        </td>
         <td className="text-nowrap">
-          {meeting_link ? (
-            <a className="stretched-link" target="_blank" href={meeting_link}>
+          {meeting ? (
+            <a className="stretched-link" target="_blank" href={meeting}>
               {updated}
             </a>
           ) : (
             updated
           )}
         </td>
-        <td>
-          {published_at && (
-            <FilterLink
-              className="stretched-link"
-              path="proposals"
-              filter="published_at"
-              value={published_at}
-            />
-          )}
-        </td>
+        <td>{published_at && formatDate(published_at, 'YYYY 年 M 月')}</td>
       </TableRow>
     );
   };
