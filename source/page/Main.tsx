@@ -2,6 +2,7 @@ import { component, mixin, createCell, Fragment } from 'web-cell';
 import { observer } from 'mobx-web-cell';
 import { Jumbotron } from 'boot-cell/source/Content/Jumbotron';
 import { Button } from 'boot-cell/source/Form/Button';
+import { Image } from 'boot-cell/source/Media/Image';
 import { SpinnerBox } from 'boot-cell/source/Prompt/Spinner';
 import { Card } from 'boot-cell/source/Content/Card';
 import { Badge } from 'boot-cell/source/Reminder/Badge';
@@ -63,12 +64,11 @@ export class MainPage extends mixin() {
     link,
     name,
     tags,
-    published_at,
+    edition,
     authors,
     champions
   }: Proposal) => {
-    const standard = tags[0].split('-')[1],
-      year = +published_at.slice(0, 4);
+    const standard = tags[0].split('-')[1];
 
     return (
       <div className="col-12 col-sm-6 col-md-3 my-3">
@@ -97,10 +97,10 @@ export class MainPage extends mixin() {
                   color="success"
                   target="_blank"
                   href={`https://www.ecma-international.org/ecma-262/${
-                    year - 2009
+                    edition - 2009
                   }.0/`}
                 >
-                  ES {year}
+                  ES {edition}
                 </Badge>
               ) : null}
             </div>
@@ -121,8 +121,14 @@ export class MainPage extends mixin() {
     return (
       <>
         <Jumbotron
-          className="mt-3 text-center"
-          title="JavaScript 中文兴趣组"
+          className="mt-4 text-center"
+          title={
+            <span className="text-nowrap">
+              JavaScript&nbsp;
+              <wbr />
+              中文兴趣组
+            </span>
+          }
           description="致力于提供一个加强中国 JavaScript 社区对 JavaScript 语言标准（ECMAScript）工作的参与的平台"
         >
           <p className="mb-4">
@@ -145,23 +151,27 @@ export class MainPage extends mixin() {
           </Button>
         </Jumbotron>
 
-        <h2 className="text-center">TC39 中国会员</h2>
+        <h2 className="mt-4 text-center">TC39 中国会员</h2>
 
-        <section className="d-flex flex-wrap justify-content-around mb-4">
+        <section className="row">
           {companies.map(({ link, logo, name }) => (
-            <a className="d-block m-3 text-center" target="_blank" href={link}>
-              <img title={name} src={logo} />
+            <a
+              className="d-flex col-12 col-sm-4 col-md-3 my-3 justify-content-center align-items-center"
+              target="_blank"
+              href={link}
+            >
+              <Image fluid title={name} src={logo} />
             </a>
           ))}
         </section>
 
-        <h2 className="text-center">JSCIG 成员</h2>
+        <h2 className="mt-4 text-center">JSCIG 成员</h2>
 
         <SpinnerBox className="row" cover={member.loading}>
           {member.list.map(this.renderMember)}
         </SpinnerBox>
 
-        <h2 className="text-center">TC39 既成提案</h2>
+        <h2 className="mt-4 text-center">TC39 既成提案</h2>
 
         <SpinnerBox className="row" cover={proposal.loading}>
           {proposal.finishedList.map(this.renderProposal)}

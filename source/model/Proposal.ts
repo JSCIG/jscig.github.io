@@ -14,6 +14,7 @@ export interface Proposal {
   published_at?: string;
   pushed_at?: string;
   tags: string[];
+  edition?: number;
   repo?: string;
   owner?: string;
   forks_count?: number;
