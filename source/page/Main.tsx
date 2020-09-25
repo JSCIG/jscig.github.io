@@ -3,10 +3,11 @@ import { observer } from 'mobx-web-cell';
 import { Jumbotron } from 'boot-cell/source/Content/Jumbotron';
 import { Button } from 'boot-cell/source/Form/Button';
 import { SpinnerBox } from 'boot-cell/source/Prompt/Spinner';
-import { Image } from 'boot-cell/source/Media/Image';
+import { Card } from 'boot-cell/source/Content/Card';
+import { Badge } from 'boot-cell/source/Reminder/Badge';
 
 import companies from '../data/members-china.json';
-import { member } from '../model';
+import { member, proposal, Member, Proposal } from '../model';
 
 @observer
 @component({
@@ -16,13 +17,107 @@ import { member } from '../model';
 export class MainPage extends mixin() {
   connectedCallback() {
     if (member.list.length < 1) member.getList();
+    if (proposal.finishedList.length < 1) proposal.getList();
 
     super.connectedCallback();
   }
 
-  render() {
-    const { loading, list } = member;
+  renderMember = ({
+    avatar_url,
+    username,
+    url,
+    name,
+    company,
+    location,
+    bio
+  }: Member) => {
+    return (
+      <div className="col-12 col-sm-6 col-md-3 my-3">
+        <Card
+          image={avatar_url}
+          title={
+            <a
+              className="stretched-link"
+              title={username}
+              target="_blank"
+              href={url}
+            >
+              {name}
+            </a>
+          }
+        >
+          <dl>
+            <dt>组织</dt>
+            <dd>{company}</dd>
+            <dt>地区</dt>
+            <dd>{location}</dd>
+            <dt>自述</dt>
+            <dd>{bio}</dd>
+          </dl>
+        </Card>
+      </div>
+    );
+  };
 
+  renderProposal = ({
+    link,
+    name,
+    tags,
+    published_at,
+    authors,
+    champions
+  }: Proposal) => {
+    const standard = tags[0].split('-')[1],
+      year = +published_at.slice(0, 4);
+
+    return (
+      <div className="col-12 col-sm-6 col-md-3 my-3">
+        <Card
+          className="h-100"
+          title={
+            link ? (
+              <a target="_blank" href={link}>
+                {name}
+              </a>
+            ) : (
+              name
+            )
+          }
+          header={
+            <div className="d-flex justify-content-around">
+              <Badge
+                color="primary"
+                target="_blank"
+                href={`https://www.ecma-international.org/publications/standards/Ecma-${standard}.htm`}
+              >
+                ECMA-{standard}
+              </Badge>
+              {standard === '262' ? (
+                <Badge
+                  color="success"
+                  target="_blank"
+                  href={`https://www.ecma-international.org/ecma-262/${
+                    year - 2009
+                  }.0/`}
+                >
+                  ES {year}
+                </Badge>
+              ) : null}
+            </div>
+          }
+        >
+          <dl>
+            <dt>作者</dt>
+            <dd>{authors.join(', ')}</dd>
+            <dt>责编</dt>
+            <dd>{champions.join(', ')}</dd>
+          </dl>
+        </Card>
+      </div>
+    );
+  };
+
+  render() {
     return (
       <>
         <Jumbotron
@@ -61,19 +156,15 @@ export class MainPage extends mixin() {
         </section>
 
         <h2 className="text-center">JSCIG 成员</h2>
-        <SpinnerBox
-          className="d-flex flex-wrap justify-content-around mb-4"
-          cover={loading}
-        >
-          {list.map(({ html_url, login }) => (
-            <a className="m-3" target="_blank" href={html_url}>
-              <Image
-                key={login}
-                thumbnail
-                src={`https://github.com/${login}.png?size=50`}
-              />
-            </a>
-          ))}
+
+        <SpinnerBox className="row" cover={member.loading}>
+          {member.list.map(this.renderMember)}
+        </SpinnerBox>
+
+        <h2 className="text-center">TC39 既成提案</h2>
+
+        <SpinnerBox className="row" cover={proposal.loading}>
+          {proposal.finishedList.map(this.renderProposal)}
         </SpinnerBox>
       </>
     );

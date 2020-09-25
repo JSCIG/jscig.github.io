@@ -15,7 +15,6 @@
   },
   "main": "source/index.html",
   "dependencies": {
-    "@octokit/rest": "^18.0.6",
     "boot-cell": "^1.1.1",
     "bootstrap-icons": "^1.0.0",
     "browser-unhandled-rejection": "^1.0.2",
@@ -28,7 +27,6 @@
     "web-utility": "^1.8.0"
   },
   "devDependencies": {
-    "@octokit/types": "^5.5.0",
     "@types/classnames": "^2.2.10",
     "autoprefixer": "^9.8.6",
     "husky": "^4.3.0",

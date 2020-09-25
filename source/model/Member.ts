@@ -1,24 +1,31 @@
 import { observable } from 'mobx';
-import { OrgsListMembersResponseData } from '@octokit/types';
 
-import { github } from './service';
+import { service } from './service';
+
+export interface Member {
+  name: string;
+  username: string;
+  url: string;
+  avatar_url: string;
+  bio?: string;
+  location?: string;
+  company?: string;
+}
 
 export class MemberModel {
   @observable
   loading = false;
 
   @observable
-  list: OrgsListMembersResponseData = [];
+  list: Member[] = [];
 
   async getList() {
     this.loading = true;
 
-    const { data } = await github.orgs.listMembers({
-      org: 'JSCIG',
-      per_page: 100
-    });
+    const { body } = await service.get<Member[]>('dataset/members-jscig.json');
+
     this.loading = false;
 
-    return (this.list = data);
+    return (this.list = body);
   }
 }

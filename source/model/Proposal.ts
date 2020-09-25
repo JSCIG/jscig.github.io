@@ -5,7 +5,7 @@ import { service } from './service';
 export interface Proposal {
   stage: number;
   name: string;
-  link: string;
+  link?: string;
   authors?: string[];
   champions?: string[];
   meeting?: string;
@@ -13,9 +13,9 @@ export interface Proposal {
   updated_at?: string;
   published_at?: string;
   pushed_at?: string;
+  tags: string[];
   repo?: string;
   owner?: string;
-  archived?: boolean;
   forks_count?: number;
   open_issues_count?: number;
   stargazers_count?: number;
@@ -41,6 +41,9 @@ export class ProposalModel {
   @observable
   sortKey: ProposalSortKey;
 
+  @observable
+  finishedList: Proposal[] = [];
+
   constructor() {
     reaction(
       () => this.sortKey,
@@ -54,9 +57,19 @@ export class ProposalModel {
     const { body } = await service.get<Proposal[]>(
       'dataset/proposals.min.json'
     );
+    const [finished, processing] = body.reduce(
+      ([finished, processing], proposal) => {
+        if (proposal.stage === 4) finished.push(proposal);
+        else processing.push(proposal);
+
+        return [finished, processing];
+      },
+      [[], []] as Proposal[][]
+    );
+
     this.loading = false;
 
-    return (this.list = body);
+    return (this.finishedList = finished), (this.list = processing);
   }
 
   sortBy(key: ProposalSortKey) {

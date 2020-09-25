@@ -2,12 +2,20 @@ import { createCell, Fragment } from 'web-cell';
 import { Route, CellRouter } from 'cell-router/source';
 import { NavBar } from 'boot-cell/source/Navigator/NavBar';
 import { NavLinkProps, NavLink } from 'boot-cell/source/Navigator/Nav';
+import {
+  DropMenuItemProps,
+  DropMenuItem
+} from 'boot-cell/source/Navigator/DropMenu';
 
 import { history } from '../model';
 import { MainPage } from './Main';
 import { ProposalPage } from './Proposal';
 
-const menu: NavLinkProps[] = [
+interface NavMenu extends NavLinkProps {
+  menu?: DropMenuItemProps[];
+}
+
+const menu: NavMenu[] = [
     { title: '标准提案', href: 'proposals' },
     {
       title: '中文讨论',
@@ -17,9 +25,20 @@ const menu: NavLinkProps[] = [
     { title: '开放组织', target: '_blank', href: 'https://github.com/JSCIG' },
     {
       title: '正式标准',
-      target: '_blank',
-      href:
-        'https://www.ecma-international.org/publications/standards/Ecma-262.htm'
+      menu: [
+        {
+          title: 'ECMAScript 语言',
+          target: '_blank',
+          href:
+            'https://www.ecma-international.org/publications/standards/Ecma-262.htm'
+        },
+        {
+          title: 'ECMAScript 国际化 API',
+          target: '_blank',
+          href:
+            'https://www.ecma-international.org/publications/standards/Ecma-402.htm'
+        }
+      ]
     },
     {
       title: '兼容表格',
@@ -51,9 +70,17 @@ export function PageFrame() {
         }
         menuAlign="end"
       >
-        {menu.map(({ title, ...props }) => (
-          <NavLink {...props}>{title}</NavLink>
-        ))}
+        {menu.map(({ title, menu, ...props }) =>
+          !menu ? (
+            <NavLink {...props}>{title}</NavLink>
+          ) : (
+            <NavLink title={title}>
+              {menu.map(({ title, ...rest }) => (
+                <DropMenuItem {...rest}>{title}</DropMenuItem>
+              ))}
+            </NavLink>
+          )
+        )}
       </NavBar>
 
       <CellRouter

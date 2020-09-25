@@ -187,9 +187,13 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
           </FilterLink>
         </td>
         <td>
-          <a className="stretched-link" target="_blank" href={link}>
-            {name}
-          </a>
+          {link ? (
+            <a className="stretched-link" target="_blank" href={link}>
+              {name}
+            </a>
+          ) : (
+            name
+          )}
         </td>
         <td>{authors && this.renderNames('author', authors)}</td>
         <td>{champions && this.renderNames('champion', champions)}</td>
@@ -246,9 +250,9 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
       stage != null
         ? list.filter(item => item.stage === stage)
         : author
-        ? list.filter(({ authors }) => authors.includes(author))
+        ? list.filter(({ authors }) => authors?.includes(author))
         : champion
-        ? list.filter(({ champions }) => champions.includes(champion))
+        ? list.filter(({ champions }) => champions?.includes(champion))
         : published_at
         ? list.filter(item => item.published_at == published_at)
         : list;
