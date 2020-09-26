@@ -156,7 +156,8 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
     meeting_at,
     pushed_at
   }: Proposal) => {
-    const updated = formatDate(meeting_at || pushed_at, 'YYYY 年 M 月');
+    const updated_at = meeting_at || pushed_at;
+    const updated = updated_at && formatDate(updated_at, 'YYYY 年 M 月');
 
     return (
       <TableRow>

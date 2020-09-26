@@ -25,4 +25,4 @@ jobs:
         with:
           publish_dir: ./dist
           personal_token: ${{ secrets.GITHUB_TOKEN }}
-          forceOrphan: true
+          force_orphan: true
