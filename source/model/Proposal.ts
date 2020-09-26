@@ -57,15 +57,22 @@ export class ProposalModel {
     const { body } = await service.get<Proposal[]>(
       'dataset/proposals.min.json'
     );
-    const [finished, processing] = body.reduce(
-      ([finished, processing], proposal) => {
-        if (proposal.stage === 4) finished.push(proposal);
-        else processing.push(proposal);
+    const [finished, processing] = body
+      .map(({ tags, authors, champions, ...rest }) => ({
+        tags,
+        authors,
+        champions: tags.includes('co-champion') ? authors : champions,
+        ...rest
+      }))
+      .reduce(
+        ([finished, processing], proposal) => {
+          if (proposal.stage === 4) finished.push(proposal);
+          else processing.push(proposal);
 
-        return [finished, processing];
-      },
-      [[], []] as Proposal[][]
-    );
+          return [finished, processing];
+        },
+        [[], []] as Proposal[][]
+      );
 
     this.loading = false;
 

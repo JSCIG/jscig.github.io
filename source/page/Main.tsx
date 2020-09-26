@@ -10,6 +10,8 @@ import { Badge } from 'boot-cell/source/Reminder/Badge';
 import companies from '../data/members-china.json';
 import { member, proposal, Member, Proposal } from '../model';
 
+const thisYear = new Date().getFullYear();
+
 @observer
 @component({
   tagName: 'main-page',
@@ -92,7 +94,7 @@ export class MainPage extends mixin() {
               >
                 ECMA-{standard}
               </Badge>
-              {standard === '262' ? (
+              {standard === '262' && edition <= thisYear ? (
                 <Badge
                   color="success"
                   target="_blank"
@@ -106,12 +108,22 @@ export class MainPage extends mixin() {
             </div>
           }
         >
-          <dl>
-            <dt>作者</dt>
-            <dd>{authors.join(', ')}</dd>
-            <dt>责编</dt>
-            <dd>{champions.join(', ')}</dd>
-          </dl>
+          {(authors || champions) && (
+            <dl>
+              {authors && (
+                <>
+                  <dt>作者</dt>
+                  <dd>{authors.join(', ')}</dd>
+                </>
+              )}
+              {champions && (
+                <>
+                  <dt>责编</dt>
+                  <dd>{champions.join(', ')}</dd>
+                </>
+              )}
+            </dl>
+          )}
         </Card>
       </div>
     );
