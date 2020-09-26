@@ -10,8 +10,8 @@ export interface Proposal {
   champions?: string[];
   meeting?: string;
   tests?: string;
-  updated_at?: string;
-  published_at?: string;
+  meeting_at?: string;
+  created_at?: string;
   pushed_at?: string;
   tags: string[];
   edition?: number;
@@ -29,8 +29,7 @@ export type ProposalSortKey =
   | 'name'
   | 'stargazers_count'
   | 'open_issues_count'
-  | 'updated_at'
-  | 'published_at';
+  | 'meeting_at';
 
 export class ProposalModel {
   @observable

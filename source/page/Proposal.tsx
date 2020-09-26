@@ -32,7 +32,6 @@ export interface ProposalPageProps extends PageProps {
   stage?: number;
   author?: string;
   champion?: string;
-  published_at?: string;
 }
 
 @observer
@@ -52,10 +51,6 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
   @attribute
   @watch
   champion?: string;
-
-  @attribute
-  @watch
-  published_at?: string;
 
   connectedCallback() {
     if (proposal.list.length < 1) proposal.getList();
@@ -112,20 +107,11 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'updated_at' && 'bg-info'
+            sortKey === 'meeting_at' && 'bg-info'
           )}
-          onClick={() => (proposal.sortKey = 'updated_at')}
+          onClick={() => (proposal.sortKey = 'meeting_at')}
         >
           最近更新
-        </th>
-        <th
-          className={classNames(
-            'user-select-none',
-            sortKey === 'published_at' && 'bg-info'
-          )}
-          onClick={() => (proposal.sortKey = 'published_at')}
-        >
-          定案时间
         </th>
       </TableRow>
     );
@@ -167,10 +153,9 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
     open_issues_count,
     tests,
     meeting,
-    updated_at,
-    published_at
+    meeting_at
   }: Proposal) => {
-    const updated = formatDate(updated_at, 'YYYY 年 M 月');
+    const updated = formatDate(meeting_at, 'YYYY 年 M 月');
 
     return (
       <TableRow>
@@ -239,12 +224,11 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             updated
           )}
         </td>
-        <td>{published_at && formatDate(published_at, 'YYYY 年 M 月')}</td>
       </TableRow>
     );
   };
 
-  render({ stage, author, champion, published_at }: ProposalPageProps) {
+  render({ stage, author, champion }: ProposalPageProps) {
     const { list, loading } = proposal;
     const data =
       stage != null
@@ -253,8 +237,6 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         ? list.filter(({ authors }) => authors?.includes(author))
         : champion
         ? list.filter(({ champions }) => champions?.includes(champion))
-        : published_at
-        ? list.filter(item => item.published_at == published_at)
         : list;
 
     return (
@@ -266,7 +248,6 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             {stage != null ? `处于 Stage ${stage} 的` : null}
             {author && `${author} 提交的`}
             {champion && `${champion} 推动的`}
-            {published_at && `定案于 ${published_at} 的`}
             活跃提案共计{' '}
             <strong>
               {data.filter(({ stage }) => stage > -1 && stage < 4).length}
