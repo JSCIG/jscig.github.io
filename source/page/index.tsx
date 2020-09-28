@@ -30,13 +30,13 @@ const menu: NavMenu[] = [
           title: 'ECMAScript 语言',
           target: '_blank',
           href:
-            'https://www.ecma-international.org/publications/standards/Ecma-262.htm'
+            'https://tc39.es/ecma262/'
         },
         {
           title: 'ECMAScript 国际化 API',
           target: '_blank',
           href:
-            'https://www.ecma-international.org/publications/standards/Ecma-402.htm'
+            'https://tc39.es/ecma402/'
         }
       ]
     },

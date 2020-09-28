@@ -90,7 +90,7 @@ export class MainPage extends mixin() {
               <Badge
                 color="primary"
                 target="_blank"
-                href={`https://www.ecma-international.org/publications/standards/Ecma-${standard}.htm`}
+                href={`https://tc39.es/ecma${standard}/`}
               >
                 ECMA-{standard}
               </Badge>
