@@ -1,6 +1,6 @@
-node_modules/
+/.cache/
+/.vscode/
+/dist/
+/node_modules/
 package-lock.json
 yarn.lock
-.cache/
-dist/
-.vscode/
