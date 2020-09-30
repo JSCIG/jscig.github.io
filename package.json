@@ -9,27 +9,11 @@
   "author": "JSCIG",
   "main": "source/index.html",
   "scripts": {
-    "build": "rm -rf dist/  &&  npm run pack-dist  &&  npm run pack-sw",
+    "build": "rm -rf dist && npm run pack-dist && npm run pack-sw",
     "pack-dist": "parcel build source/index.html --public-url .",
-    "pack-sw": "rm -f dist/sw.js.map  &&  workbox generateSW",
-    "start": "workbox generateSW  &&  parcel source/index.html --open",
+    "pack-sw": "rm -f dist/sw.js.map && workbox generateSW",
+    "start": "workbox generateSW && parcel source/index.html --open",
     "test": "lint-staged"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm run build"
-    }
-  },
-  "lint-staged": {
-    "*.{html,md,css,less,json,yml,js,ts,tsx}": [
-      "prettier --write"
-    ]
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "singleQuote": true,
-    "trailingComma": "none"
   },
   "dependencies": {
     "boot-cell": "^1.1.1",
@@ -54,13 +38,5 @@
     "prettier": "^2.1.2",
     "typescript": "^4.0.3",
     "workbox-cli": "^4.3.1"
-  },
-  "postcss": {
-    "modules": true,
-    "plugins": {
-      "autoprefixer": {
-        "grid": true
-      }
-    }
   }
 }
