@@ -1,0 +1,20 @@
+{
+  "name": "JavaScript 中文兴趣组",
+  "short_name": "JSCIG",
+  "start_url": ".",
+  "description": "JavaScript Chinese Interest Group",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "theme_color": "rgba(0,0,0,0.5)",
+  "background_color": "transparent",
+  "icons": [
+    {
+      "src": "https://github.com/JSCIG.png",
+      "type": "image/png",
+      "sizes": "460x460"
+    }
+  ]
+}

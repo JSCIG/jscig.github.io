@@ -1,0 +1,72 @@
+{
+  "name": "@jscig/ows",
+  "version": "0.5.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "description": "Official Web site of JavaScript Chinese Interest Group",
+  "author": "shiy2008@gmail.com",
+  "homepage": "https://jscig.github.io/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSCIG/jscig.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JSCIG/jscig.github.io/issues"
+  },
+  "main": "source/index.html",
+  "dependencies": {
+    "boot-cell": "^1.1.1",
+    "bootstrap-icons": "^1.0.0",
+    "browser-unhandled-rejection": "^1.0.2",
+    "cell-router": "^2.0.1",
+    "classnames": "^2.2.6",
+    "koajax": "^0.6.2",
+    "mobx": "^5.15.7",
+    "mobx-web-cell": "^0.3.2",
+    "web-cell": "^2.2.0",
+    "web-utility": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "autoprefixer": "^9.8.6",
+    "husky": "^4.3.0",
+    "less": "^3.12.2",
+    "lint-staged": "^10.4.0",
+    "parcel": "^1.12.4",
+    "postcss-modules": "^3.2.2",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3",
+    "workbox-cli": "^4.3.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid"
+  },
+  "lint-staged": {
+    "*.{html,md,css,less,json,yml,js,ts,tsx}": [
+      "prettier --write"
+    ]
+  },
+  "postcss": {
+    "modules": true,
+    "plugins": {
+      "autoprefixer": {
+        "grid": true
+      }
+    }
+  },
+  "scripts": {
+    "test": "lint-staged",
+    "start": "workbox generateSW  &&  parcel source/index.html --open",
+    "pack-dist": "parcel build source/index.html --public-url .",
+    "pack-sw": "rm -f dist/sw.js.map  &&  workbox generateSW",
+    "build": "rm -rf dist/  &&  npm run pack-dist  &&  npm run pack-sw"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm run build"
+    }
+  }
+}
