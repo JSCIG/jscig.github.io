@@ -4,7 +4,7 @@ import { Jumbotron } from 'boot-cell/source/Content/Jumbotron';
 import { Button } from 'boot-cell/source/Form/Button';
 import { Image } from 'boot-cell/source/Media/Image';
 import { SpinnerBox } from 'boot-cell/source/Prompt/Spinner';
-import { Card } from 'boot-cell/source/Content/Card';
+import { Card, CardHeader } from 'boot-cell/source/Content/Card';
 import { Badge } from 'boot-cell/source/Reminder/Badge';
 
 import companies from '../data/members-china.json';
@@ -15,7 +15,7 @@ const thisYear = new Date().getFullYear();
 @observer
 @component({
   tagName: 'main-page',
-  renderTarget: 'children'
+  renderTarget: 'children',
 })
 export class MainPage extends mixin() {
   connectedCallback() {
@@ -32,7 +32,7 @@ export class MainPage extends mixin() {
     name,
     company,
     location,
-    bio
+    bio,
   }: Member) => {
     return (
       <div className="col-12 col-sm-6 col-md-3 my-3">
@@ -68,7 +68,7 @@ export class MainPage extends mixin() {
     tags,
     edition,
     authors,
-    champions
+    champions,
   }: Proposal) => {
     const standard = tags[0].split('-')[1];
 
@@ -85,29 +85,27 @@ export class MainPage extends mixin() {
               name
             )
           }
-          header={
-            <div className="d-flex justify-content-around">
-              <Badge
-                color="primary"
-                target="_blank"
-                href={`https://tc39.es/ecma${standard}/`}
-              >
-                ECMA-{standard}
-              </Badge>
-              {standard === '262' && edition <= thisYear ? (
-                <Badge
-                  color="success"
-                  target="_blank"
-                  href={`https://www.ecma-international.org/ecma-262/${
-                    edition - 2009
-                  }.0/`}
-                >
-                  ES {edition}
-                </Badge>
-              ) : null}
-            </div>
-          }
         >
+          <CardHeader className="d-flex justify-content-around">
+            <Badge
+              color="primary"
+              target="_blank"
+              href={`https://tc39.es/ecma${standard}/`}
+            >
+              ECMA-{standard}
+            </Badge>
+            {standard === '262' && edition <= thisYear ? (
+              <Badge
+                color="success"
+                target="_blank"
+                href={`https://www.ecma-international.org/ecma-262/${
+                  edition - 2009
+                }.0/`}
+              >
+                ES {edition}
+              </Badge>
+            ) : null}
+          </CardHeader>
           {(authors || champions) && (
             <dl>
               {authors && (

@@ -1,5 +1,3 @@
 {
-  "*.{html,md,css,less,json,yml,js,ts,tsx}": [
-    "prettier --write"
-  ]
+  "*.{html,md,css,less,json,yml,js,ts,tsx}": "prettier --write"
 }
