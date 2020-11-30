@@ -16,27 +16,27 @@
     "test": "lint-staged"
   },
   "dependencies": {
-    "boot-cell": "^1.1.1",
-    "bootstrap-icons": "^1.0.0",
+    "boot-cell": "^1.4.0",
+    "bootstrap-icons": "^1.1.0",
     "browser-unhandled-rejection": "^1.0.2",
     "cell-router": "^2.0.1",
     "classnames": "^2.2.6",
-    "koajax": "^0.6.2",
+    "koajax": "^0.6.4",
     "mobx": "^5.15.7",
     "mobx-web-cell": "^0.3.2",
     "web-cell": "^2.2.0",
-    "web-utility": "^1.8.0"
+    "web-utility": "^2.0.0"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.10",
+    "@types/classnames": "^2.2.11",
     "autoprefixer": "^9.8.6",
     "husky": "^4.3.0",
     "less": "^3.12.2",
-    "lint-staged": "^10.4.0",
+    "lint-staged": "^10.5.2",
     "parcel": "^1.12.4",
     "postcss-modules": "^3.2.2",
-    "prettier": "^2.1.2",
-    "typescript": "^4.0.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.2",
     "workbox-cli": "^4.3.1"
   }
 }
