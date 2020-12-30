@@ -9,7 +9,7 @@ JavaScript 中文讨论组致力于提供一个加强中国 JavaScript 社区对
 讨论可能提交给 TC39 的提案、标准的测试、实现以及和 JavaScript 相关的标准化机会，
 同时协助中国 JavaScript 社区对 JavaScript 语言的发展进行参与和贡献。
 
-- [讨论](https://github.com/JSCIG/es-discuss/issues)
+- [讨论](https://github.com/JSCIG/es-discuss/discussions)
 
 ## 官网开发
 
