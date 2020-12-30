@@ -20,7 +20,7 @@ const menu: NavMenu[] = [
     {
       title: '中文讨论',
       target: '_blank',
-      href: 'https://github.com/JSCIG/es-discuss/issues'
+      href: 'https://github.com/JSCIG/es-discuss/discussions'
     },
     { title: '开放组织', target: '_blank', href: 'https://github.com/JSCIG' },
     {
