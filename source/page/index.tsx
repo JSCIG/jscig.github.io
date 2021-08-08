@@ -4,7 +4,7 @@ import { NavBar } from 'boot-cell/source/Navigator/NavBar';
 import { NavLinkProps, NavLink } from 'boot-cell/source/Navigator/Nav';
 import {
   DropMenuItemProps,
-  DropMenuItem
+  DropMenuItem,
 } from 'boot-cell/source/Navigator/DropMenu';
 
 import { history } from '../model';
@@ -20,7 +20,7 @@ const menu: NavMenu[] = [
     {
       title: '中文讨论',
       target: '_blank',
-      href: 'https://github.com/JSCIG/es-discuss/discussions'
+      href: 'https://github.com/JSCIG/es-discuss/discussions',
     },
     { title: '开放组织', target: '_blank', href: 'https://github.com/JSCIG' },
     {
@@ -29,26 +29,26 @@ const menu: NavMenu[] = [
         {
           title: 'ECMAScript 语言',
           target: '_blank',
-          href: 'https://tc39.es/ecma262/'
+          href: 'https://tc39.es/ecma262/',
         },
         {
           title: 'ECMAScript 国际化 API',
           target: '_blank',
-          href: 'https://tc39.es/ecma402/'
-        }
-      ]
+          href: 'https://tc39.es/ecma402/',
+        },
+      ],
     },
     {
       title: '兼容表格',
       target: '_blank',
-      href: 'https://kangax.github.io/compat-table/es6/'
+      href: 'https://kangax.github.io/compat-table/es6/',
     },
     { title: 'ES 6 学习', target: '_blank', href: 'http://es6-features.org/' },
-    { title: '技术委员会', target: '_blank', href: 'https://tc39.es/' }
+    { title: '技术委员会', target: '_blank', href: 'https://tc39.es/' },
   ],
   routes: Route[] = [
     { paths: [''], component: MainPage },
-    { paths: ['proposals'], component: ProposalPage }
+    { paths: ['proposals'], component: ProposalPage },
   ];
 
 export function PageFrame() {
@@ -56,6 +56,9 @@ export function PageFrame() {
     <>
       <NavBar
         narrow
+        expand="md"
+        theme="dark"
+        background="dark"
         brand={
           <>
             <img
@@ -77,7 +80,7 @@ export function PageFrame() {
                 <DropMenuItem {...rest}>{title}</DropMenuItem>
               ))}
             </NavLink>
-          )
+          ),
         )}
       </NavBar>
 

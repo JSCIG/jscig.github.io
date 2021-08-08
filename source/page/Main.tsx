@@ -154,8 +154,9 @@ export class MainPage extends mixin() {
           </Button>
           <Button
             size="lg"
+            color="primary"
             target="_blank"
-            href="https://github.com/JSCIG/es-discuss/issues"
+            href="https://github.com/JSCIG/es-discuss/discussions"
           >
             参与讨论
           </Button>
