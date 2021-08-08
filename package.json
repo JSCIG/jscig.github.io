@@ -9,34 +9,35 @@
   "author": "JSCIG",
   "main": "source/index.html",
   "scripts": {
+    "prepare": "husky install",
     "build": "rm -rf dist && npm run pack-dist && npm run pack-sw",
     "pack-dist": "parcel build source/index.html --public-url .",
     "pack-sw": "rm -f dist/sw.js.map && workbox generateSW",
-    "start": "workbox generateSW && parcel source/index.html --open",
+    "start": "parcel source/index.html --open",
     "test": "lint-staged"
   },
   "dependencies": {
-    "boot-cell": "^1.4.0",
-    "bootstrap-icons": "^1.1.0",
+    "boot-cell": "^1.9.5",
     "browser-unhandled-rejection": "^1.0.2",
-    "cell-router": "^2.0.1",
-    "classnames": "^2.2.6",
-    "koajax": "^0.6.4",
+    "cell-router": "^2.0.4",
+    "classnames": "^2.3.1",
+    "koajax": "^0.7.0",
     "mobx": "^5.15.7",
-    "mobx-web-cell": "^0.3.2",
-    "web-cell": "^2.2.0",
-    "web-utility": "^2.0.0"
+    "mobx-web-cell": "^0.3.5",
+    "web-cell": "^2.3.0",
+    "web-utility": "^2.6.0"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.11",
+    "@types/classnames": "^2.3.1",
+    "@types/node": "^14.17.9",
     "autoprefixer": "^9.8.6",
-    "husky": "^4.3.0",
-    "less": "^3.12.2",
-    "lint-staged": "^10.5.2",
-    "parcel": "^1.12.4",
+    "husky": "^7.0.1",
+    "less": "^4.1.1",
+    "lint-staged": "^11.1.2",
+    "parcel-bundler": "^1.12.5",
     "postcss-modules": "^3.2.2",
-    "prettier": "^2.2.1",
-    "typescript": "^4.1.2",
-    "workbox-cli": "^4.3.1"
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5",
+    "workbox-cli": "^6.2.2"
   }
 }
