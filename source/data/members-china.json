@@ -1,11 +1,11 @@
 [
   {
-    "name": "360 技术集团",
+    "name": "三六零科技集团有限公司",
     "logo": "https://p3.ssl.qhimg.com/t011e94f0b9ed8e66b0.png",
     "link": "https://www.360.cn/"
   },
   {
-    "name": "阿里巴巴集团",
+    "name": "阿里巴巴（中国）有限公司",
     "logo": "https://docs.alibabagroup.com/assets2/images/cn/global/logo_header.png",
     "link": "https://www.alibabagroup.com/"
   },
@@ -15,7 +15,7 @@
     "link": "https://www.tencent.com/"
   },
   {
-    "name": "华为技术",
+    "name": "华为技术有限公司",
     "logo": "https://www-file.huawei.com/-/media/corporate/images/home/logo/huawei_logo.png",
     "link": "https://www.huawei.com/"
   },
@@ -23,5 +23,10 @@
     "name": "Sujitech",
     "logo": "https://www.ecma-international.org/wp-content/uploads/Sujitech-logo.gif",
     "link": "https://sujitech.com/"
+  },
+  {
+    "name": "北京字节跳动网络技术有限公司",
+    "logo": "https://www.ecma-international.org/wp-content/uploads/beijing_bytedance-logo.gif",
+    "link": "https://www.bytedance.com/"
   }
 ]
