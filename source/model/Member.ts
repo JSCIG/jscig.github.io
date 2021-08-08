@@ -22,8 +22,9 @@ export class MemberModel {
   async getList() {
     this.loading = true;
 
-    const { body } = await service.get<Member[]>('dataset/members-jscig.json');
-
+    const { body } = await service.get<Member[]>(
+      'https://jscig.github.io/dataset/members-jscig.json',
+    );
     this.loading = false;
 
     return (this.list = body);
