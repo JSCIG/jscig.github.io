@@ -7,5 +7,6 @@
     ".huskyrc": "json",
     ".lintstagedrc": "json",
     ".postcssrc": "json"
-  }
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }
