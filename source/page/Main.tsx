@@ -25,7 +25,7 @@ export class MainPage extends mixin() {
     super.connectedCallback();
   }
 
-  renderMember = ({
+  renderMember({
     avatar_url,
     username,
     url,
@@ -33,7 +33,7 @@ export class MainPage extends mixin() {
     company,
     location,
     bio,
-  }: Member) => {
+  }: Member) {
     return (
       <div className="col-12 col-sm-6 col-md-3 my-3">
         <Card
@@ -60,7 +60,7 @@ export class MainPage extends mixin() {
         </Card>
       </div>
     );
-  };
+  }
 
   renderProposal = ({
     link,
@@ -165,13 +165,14 @@ export class MainPage extends mixin() {
         <h2 className="mt-4 text-center">TC39 中国会员</h2>
 
         <section className="row">
-          {companies.map(({ link, logo, name }) => (
+          {companies.map(({ link, logo, name, representatives }) => (
             <a
-              className="d-flex col-12 col-sm-4 col-md-3 my-3 justify-content-center align-items-center"
+              className="d-flex col-12 col-sm-4 col-md-3 my-3 flex-column justify-content-between align-items-center text-decoration-none"
               target="_blank"
               href={link}
             >
               <Image fluid title={name} src={logo} />
+              ECMA 大会代表：{representatives.join('、')}
             </a>
           ))}
         </section>
