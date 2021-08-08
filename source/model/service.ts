@@ -1,6 +1,6 @@
 import { HTTPClient } from 'koajax';
 
 export const service = new HTTPClient({
-  baseURI: 'https://jscig.github.io/',
+  baseURI: 'https://tc39.es/',
   responseType: 'json'
 });
