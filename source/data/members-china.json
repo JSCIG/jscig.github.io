@@ -2,31 +2,37 @@
   {
     "name": "三六零科技集团有限公司",
     "logo": "https://p3.ssl.qhimg.com/t011e94f0b9ed8e66b0.png",
-    "link": "https://www.360.cn/"
+    "link": "https://www.360.cn/",
+    "representatives": ["李智杰", "王先坤"]
   },
   {
     "name": "阿里巴巴（中国）有限公司",
     "logo": "https://docs.alibabagroup.com/assets2/images/cn/global/logo_header.png",
-    "link": "https://www.alibabagroup.com/"
+    "link": "https://www.alibabagroup.com/",
+    "representatives": ["郑叶飞"]
   },
   {
     "name": "腾讯",
     "logo": "https://www.tencent.com/img/index/tencent_logo.png",
-    "link": "https://www.tencent.com/"
+    "link": "https://www.tencent.com/",
+    "representatives": ["郑苏波"]
   },
   {
     "name": "华为技术有限公司",
     "logo": "https://www-file.huawei.com/-/media/corporate/images/home/logo/huawei_logo.png",
-    "link": "https://www.huawei.com/"
+    "link": "https://www.huawei.com/",
+    "representatives": ["侯凡", "王亚举"]
   },
   {
     "name": "Sujitech",
     "logo": "https://www.ecma-international.org/wp-content/uploads/Sujitech-logo.gif",
-    "link": "https://sujitech.com/"
+    "link": "https://sujitech.com/",
+    "representatives": ["刘怿斯"]
   },
   {
     "name": "北京字节跳动网络技术有限公司",
     "logo": "https://www.ecma-international.org/wp-content/uploads/beijing_bytedance-logo.gif",
-    "link": "https://www.bytedance.com/"
+    "link": "https://www.bytedance.com/",
+    "representatives": ["张荣剑"]
   }
 ]

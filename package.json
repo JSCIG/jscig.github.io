@@ -25,7 +25,7 @@
     "mobx": "^5.15.7",
     "mobx-web-cell": "^0.3.5",
     "web-cell": "^2.3.0",
-    "web-utility": "^2.6.0"
+    "web-utility": "^2.6.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",

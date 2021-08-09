@@ -10,6 +10,7 @@ import {
 import { history } from '../model';
 import { MainPage } from './Main';
 import { ProposalPage } from './Proposal';
+import { OrganizationPage } from './Organization';
 
 interface NavMenu extends NavLinkProps {
   menu?: DropMenuItemProps[];
@@ -49,12 +50,14 @@ const menu: NavMenu[] = [
   routes: Route[] = [
     { paths: [''], component: MainPage },
     { paths: ['proposals'], component: ProposalPage },
+    { paths: ['members'], component: OrganizationPage },
   ];
 
 export function PageFrame() {
   return (
     <>
       <NavBar
+        fixed="top"
         narrow
         expand="md"
         theme="dark"
@@ -91,6 +94,11 @@ export function PageFrame() {
         routes={routes}
       />
       <footer className="text-center bg-light py-5">
+        <img
+          style={{ width: '2rem', margin: '0 0.25rem' }}
+          alt="WebCell logo"
+          src="https://web-cell.dev/WebCell-0.f1ffd28b.png"
+        />
         自豪地用
         <a className="mx-1" target="_blank" href="https://web-cell.dev/">
           WebCell v2

@@ -7,7 +7,7 @@ import { SpinnerBox } from 'boot-cell/source/Prompt/Spinner';
 import { Card, CardHeader } from 'boot-cell/source/Content/Card';
 import { Badge } from 'boot-cell/source/Reminder/Badge';
 
-import companies from '../data/members-china.json';
+import organizations from '../data/members-china.json';
 import { member, proposal, Member, Proposal } from '../model';
 
 const thisYear = new Date().getFullYear();
@@ -25,7 +25,7 @@ export class MainPage extends mixin() {
     super.connectedCallback();
   }
 
-  renderMember = ({
+  renderMember({
     avatar_url,
     username,
     url,
@@ -33,7 +33,7 @@ export class MainPage extends mixin() {
     company,
     location,
     bio,
-  }: Member) => {
+  }: Member) {
     return (
       <div className="col-12 col-sm-6 col-md-3 my-3">
         <Card
@@ -60,7 +60,7 @@ export class MainPage extends mixin() {
         </Card>
       </div>
     );
-  };
+  }
 
   renderProposal = ({
     link,
@@ -131,7 +131,7 @@ export class MainPage extends mixin() {
     return (
       <>
         <Jumbotron
-          className="mt-4 text-center"
+          className="my-5 text-center"
           title={
             <span className="text-nowrap">
               JavaScript&nbsp;
@@ -162,27 +162,32 @@ export class MainPage extends mixin() {
           </Button>
         </Jumbotron>
 
-        <h2 className="mt-4 text-center">TC39 中国会员</h2>
+        <h2 className="my-5 text-center">TC39 中国会员</h2>
 
         <section className="row">
-          {companies.map(({ link, logo, name }) => (
+          {organizations.map(({ link, logo, name }) => (
             <a
-              className="d-flex col-12 col-sm-4 col-md-3 my-3 justify-content-center align-items-center"
+              className="d-flex col-12 col-sm-4 col-md-3 my-3 flex-column justify-content-between align-items-center text-decoration-none"
               target="_blank"
               href={link}
             >
               <Image fluid title={name} src={logo} />
             </a>
           ))}
+          <footer className="col-12 text-center">
+            <Button size="sm" outline color="primary" href="members">
+              查看详情
+            </Button>
+          </footer>
         </section>
 
-        <h2 className="mt-4 text-center">JSCIG 成员</h2>
+        <h2 className="my-5 text-center">JSCIG 成员</h2>
 
         <SpinnerBox className="row" cover={member.loading}>
           {member.list.map(this.renderMember)}
         </SpinnerBox>
 
-        <h2 className="mt-4 text-center">TC39 既成提案</h2>
+        <h2 className="my-5 text-center">TC39 既成提案</h2>
 
         <SpinnerBox className="row" cover={proposal.loading}>
           {proposal.finishedList.map(this.renderProposal)}
