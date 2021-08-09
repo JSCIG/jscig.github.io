@@ -79,10 +79,10 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
           )}
           onClick={() => (proposal.sortKey = 'name')}
         >
-          名称
+          提案名称
         </th>
-        <th>作者</th>
-        <th>责编</th>
+        <th>作者（Author）</th>
+        <th>责编（Champion）</th>
         <th
           className={classNames(
             'user-select-none',
@@ -111,7 +111,7 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
           )}
           onClick={() => (proposal.sortKey = 'meeting_at')}
         >
-          最近更新
+          最近会议记录
         </th>
       </TableRow>
     );
@@ -143,22 +143,24 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
     }
   }
 
+  renderNotes(notes: { date: string, url: string }[]) {
+    return notes.map(({ date, url }) => (
+      <a href={url}>{formatDate(date, 'YYYY年M月D日')}</a>
+    ))
+  }
+
   renderRow = ({
     stage,
-    link,
+    url,
     name,
     authors,
     champions,
     stargazers_count,
     open_issues_count,
     tests,
-    meeting,
-    meeting_at,
-    pushed_at
+    notes,
+    // pushed_at,
   }: Proposal) => {
-    const updated_at = meeting_at || pushed_at;
-    const updated = updated_at && formatDate(updated_at, 'YYYY 年 M 月');
-
     return (
       <TableRow>
         <td>
@@ -170,12 +172,12 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             filter="stage"
             value={stage}
           >
-            {stage < 0 ? 'Inactive' : `Stage ${stage}`}
+            {stage < 0 ? '非活跃' : `阶段${stage}`}
           </FilterLink>
         </td>
         <td>
-          {link ? (
-            <a className="stretched-link" target="_blank" href={link}>
+          {url ? (
+            <a className="stretched-link" target="_blank" href={url}>
               {name}
             </a>
           ) : (
@@ -189,7 +191,7 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             <a
               className="stretched-link"
               target="_blank"
-              href={link + '/stargazers'}
+              href={url + '/stargazers'}
             >
               {stargazers_count}
             </a>
@@ -200,7 +202,7 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             <a
               className="stretched-link"
               target="_blank"
-              href={link + '/issues'}
+              href={url + '/issues'}
             >
               {open_issues_count}
             </a>
@@ -218,13 +220,7 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
           )}
         </td>
         <td className="text-nowrap">
-          {meeting ? (
-            <a className="stretched-link" target="_blank" href={meeting}>
-              {updated}
-            </a>
-          ) : (
-            updated
-          )}
+          {notes && this.renderNotes(notes)}
         </td>
       </TableRow>
     );
@@ -236,10 +232,10 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
       stage != null
         ? list.filter(item => item.stage === stage)
         : author
-        ? list.filter(({ authors }) => authors?.includes(author))
-        : champion
-        ? list.filter(({ champions }) => champions?.includes(champion))
-        : list;
+          ? list.filter(({ authors }) => authors?.includes(author))
+          : champion
+            ? list.filter(({ champions }) => champions?.includes(champion))
+            : list;
 
     return (
       <>

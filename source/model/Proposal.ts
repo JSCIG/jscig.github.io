@@ -5,23 +5,25 @@ import { service } from './service';
 export interface Proposal {
   stage: number;
   name: string;
-  link?: string;
-  authors?: string[];
-  champions?: string[];
-  meeting?: string;
+  url: string;
+  authors: string[];
+  champions: string[];
   tests?: string;
-  meeting_at?: string;
-  created_at?: string;
+  'has-specification': boolean;
+  notes?: { date: string, url: string }[];
+  // created_at?: string;
   pushed_at?: string;
   tags: string[];
+  rationale?: string;
   edition?: number;
-  repo?: string;
-  owner?: string;
-  forks_count?: number;
+  id?: string;
+  // repo?: string;
+  // owner?: string;
+  // forks_count?: number;
   open_issues_count?: number;
   stargazers_count?: number;
-  subscribers_count?: number;
-  watchers_count?: number;
+  // subscribers_count?: number;
+  // watchers_count?: number;
 }
 
 export type ProposalSortKey =
