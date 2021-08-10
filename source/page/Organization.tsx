@@ -1,16 +1,17 @@
 import { createCell, Fragment } from 'web-cell';
 import { Image } from 'boot-cell/source/Media/Image';
 import { Card, CardFooter } from 'boot-cell/source/Content/Card';
+import { formatDate } from 'web-utility/source/date';
 
 import organizations from '../data/members-china.json';
 
 export function OrganizationPage() {
   return (
     <>
-      <h1 className="my-5 text-center">TC39 中国会员单位</h1>
+      <h1 className="my-5 text-center">Ecma国际 中国会员单位</h1>
 
       <ul className="list-unstyled row">
-        {organizations.map(({ logo, link, name, representatives }) => (
+        {organizations.map(({ logo, link, name, gaRep, gaAlt, membership, startDate }) => (
           <li className="col-12 col-sm-6 col-md-3 px-2 my-2 d-flex">
             <Card
               className="shadow-sm flex-fill"
@@ -36,7 +37,8 @@ export function OrganizationPage() {
               }
             >
               <CardFooter className="small">
-                ECMA 大会代表：{representatives.join('、')}
+                <div>自{formatDate(startDate, 'YYYY年M月')}成为{membership}会员</div>
+                <div>会员大会代表：{gaRep}{gaAlt && `、${gaAlt}`}</div>
               </CardFooter>
             </Card>
           </li>
