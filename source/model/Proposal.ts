@@ -1,55 +1,56 @@
 import { observable, reaction } from 'mobx';
 
 import { service } from './service';
+import { Member } from './Member';
 
-export interface Proposal {
+export interface Proposal
+  extends Pick<Member, 'name' | 'url'>,
+    Partial<
+      Record<
+        | 'id'
+        | `${'created' | 'pushed' | 'meeting'}_at`
+        | 'owner'
+        | 'repo'
+        | 'link'
+        | 'tests'
+        | 'rationale',
+        string
+      > &
+        Record<
+          | `${'stargazers' | 'watchers' | 'forks' | 'open_issues' | 'subscribers'}_count`
+          | 'edition',
+          number
+        >
+    >,
+    Record<'authors' | 'champions' | 'tags', string[]> {
   stage: number;
-  name: string;
-  url: string;
-  authors: string[];
-  champions: string[];
-  tests?: string;
   'has-specification': boolean;
-  notes?: { date: string, url: string }[];
-  // created_at?: string;
-  pushed_at?: string;
-  tags: string[];
-  rationale?: string;
-  edition?: number;
-  id?: string;
-  // repo?: string;
-  // owner?: string;
-  // forks_count?: number;
-  open_issues_count?: number;
-  stargazers_count?: number;
-  // subscribers_count?: number;
-  // watchers_count?: number;
+  notes?: Record<'date' | 'url', string>[];
 }
 
 export type ProposalSortKey =
   | 'stage'
   | 'name'
-  | 'stargazers_count'
-  | 'open_issues_count'
+  | `${'stargazers' | 'open_issues'}_count`
   | 'meeting_at';
 
 export class ProposalModel {
   @observable
-  loading = false;
+  accessor loading = false;
 
   @observable
-  list: Proposal[] = [];
+  accessor list: Proposal[] = [];
 
   @observable
-  sortKey: ProposalSortKey;
+  accessor sortKey: ProposalSortKey;
 
   @observable
-  finishedList: Proposal[] = [];
+  accessor finishedList: Proposal[] = [];
 
   constructor() {
     reaction(
       () => this.sortKey,
-      key => this.sortBy(key)
+      key => this.sortBy(key),
     );
   }
 
@@ -57,14 +58,14 @@ export class ProposalModel {
     this.loading = true;
 
     const { body } = await service.get<Proposal[]>(
-      'dataset/proposals.min.json'
+      'dataset/proposals.min.json',
     );
     const [finished, processing] = body
       .map(({ tags, authors, champions, ...rest }) => ({
         tags,
         authors,
         champions: tags.includes('co-champion') ? authors : champions,
-        ...rest
+        ...rest,
       }))
       .reduce(
         ([finished, processing], proposal) => {
@@ -73,7 +74,7 @@ export class ProposalModel {
 
           return [finished, processing];
         },
-        [[], []] as Proposal[][]
+        [[], []] as Proposal[][],
       );
 
     this.loading = false;
@@ -92,7 +93,7 @@ export class ProposalModel {
           default:
             return key.endsWith('_at') ? +new Date(B) - +new Date(A) : 0;
         }
-      }
+      },
     ));
   }
 }
