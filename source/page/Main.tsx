@@ -1,31 +1,31 @@
-import { component, mixin, createCell, Fragment } from 'web-cell';
-import { observer } from 'mobx-web-cell';
-import { Jumbotron } from 'boot-cell/source/Content/Jumbotron';
-import { Button } from 'boot-cell/source/Form/Button';
-import { Image } from 'boot-cell/source/Media/Image';
-import { SpinnerBox } from 'boot-cell/source/Prompt/Spinner';
-import { Card, CardHeader } from 'boot-cell/source/Content/Card';
-import { Badge } from 'boot-cell/source/Reminder/Badge';
+import { component, observer } from 'web-cell';
+import {
+  Jumbotron,
+  Button,
+  Image,
+  SpinnerBox,
+  Card,
+  CardBody,
+  CardHeader,
+  CardImg,
+  CardTitle,
+  Badge,
+} from 'boot-cell';
 
 import organizations from '../data/members-china.json';
 import { member, proposal, Member, Proposal } from '../model';
 
 const thisYear = new Date().getFullYear();
 
+@component({ tagName: 'main-page' })
 @observer
-@component({
-  tagName: 'main-page',
-  renderTarget: 'children',
-})
-export class MainPage extends mixin() {
+export class MainPage extends HTMLElement {
   connectedCallback() {
     if (member.list.length < 1) member.getList();
     if (proposal.finishedList.length < 1) proposal.getList();
-
-    super.connectedCallback();
   }
 
-  renderMember({
+  renderMember = ({
     avatar_url,
     username,
     url,
@@ -33,22 +33,21 @@ export class MainPage extends mixin() {
     company,
     location,
     bio,
-  }: Member) {
-    return (
-      <div className="col-12 col-sm-6 col-md-3 my-3">
-        <Card
-          image={avatar_url}
-          title={
+  }: Member) => (
+    <div key={username} className="col-12 col-sm-6 col-md-3 my-3">
+      <Card className="h-100">
+        <CardImg variant="top" src={avatar_url} loading="lazy" />
+        <CardBody>
+          <CardTitle>
             <a
-              className="stretched-link"
+              className="text-decoration-none stretched-link"
               title={username}
               target="_blank"
               href={url}
             >
               {name}
             </a>
-          }
-        >
+          </CardTitle>
           <dl>
             <dt>组织</dt>
             <dd>{company}</dd>
@@ -57,10 +56,10 @@ export class MainPage extends mixin() {
             <dt>自述</dt>
             <dd>{bio}</dd>
           </dl>
-        </Card>
-      </div>
-    );
-  }
+        </CardBody>
+      </Card>
+    </div>
+  );
 
   renderProposal = ({
     link,
@@ -74,29 +73,18 @@ export class MainPage extends mixin() {
 
     return (
       <div className="col-12 col-sm-6 col-md-3 my-3">
-        <Card
-          className="h-100"
-          title={
-            link ? (
-              <a target="_blank" href={link}>
-                {name}
-              </a>
-            ) : (
-              name
-            )
-          }
-        >
+        <Card className="h-100">
           <CardHeader className="d-flex justify-content-around">
             <Badge
-              color="primary"
+              bg="primary"
               target="_blank"
               href={`https://tc39.es/ecma${standard}/`}
             >
               ECMA-{standard}
             </Badge>
-            {standard === '262' && edition <= thisYear ? (
+            {standard === '262' && edition <= thisYear && (
               <Badge
-                color="success"
+                bg="success"
                 target="_blank"
                 href={`https://www.ecma-international.org/ecma-262/${
                   edition - 2009
@@ -104,24 +92,36 @@ export class MainPage extends mixin() {
               >
                 ES {edition}
               </Badge>
-            ) : null}
+            )}
           </CardHeader>
-          {(authors || champions) && (
-            <dl>
-              {authors && (
-                <>
-                  <dt>作者</dt>
-                  <dd>{authors.join(', ')}</dd>
-                </>
+          <CardBody>
+            <CardTitle>
+              {link ? (
+                <a target="_blank" href={link}>
+                  {name}
+                </a>
+              ) : (
+                name
               )}
-              {champions && (
-                <>
-                  <dt>责编</dt>
-                  <dd>{champions.join(', ')}</dd>
-                </>
-              )}
-            </dl>
-          )}
+            </CardTitle>
+
+            {(authors || champions) && (
+              <dl>
+                {authors && (
+                  <>
+                    <dt>作者</dt>
+                    <dd>{authors.join(', ')}</dd>
+                  </>
+                )}
+                {champions && (
+                  <>
+                    <dt>责编</dt>
+                    <dd>{champions.join(', ')}</dd>
+                  </>
+                )}
+              </dl>
+            )}
+          </CardBody>
         </Card>
       </div>
     );
@@ -149,12 +149,17 @@ export class MainPage extends mixin() {
             语言的发展进行参与和贡献。
           </p>
 
-          <Button className="mr-3" size="lg" color="success" href="proposals">
+          <Button
+            className="me-3"
+            size="lg"
+            variant="success"
+            href="#proposals"
+          >
             查阅提案
           </Button>
           <Button
             size="lg"
-            color="primary"
+            variant="primary"
             target="_blank"
             href="https://github.com/JSCIG/es-discuss/discussions"
           >
@@ -175,7 +180,7 @@ export class MainPage extends mixin() {
             </a>
           ))}
           <footer className="col-12 text-center">
-            <Button size="sm" outline color="primary" href="members">
+            <Button size="sm" variant="outline-primary" href="#members">
               查看详情
             </Button>
           </footer>

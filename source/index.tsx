@@ -1,10 +1,13 @@
 import { auto } from 'browser-unhandled-rejection';
-import { serviceWorkerUpdate } from 'web-utility';
-import { documentReady, render, createCell } from 'web-cell';
+import { DOMRenderer } from 'dom-renderer';
+import { configure } from 'mobx';
+import { documentReady, serviceWorkerUpdate } from 'web-utility';
 
 import { PageFrame } from './page';
 
 auto();
+
+configure({ enforceActions: 'never' });
 
 self.addEventListener('unhandledrejection', event => {
   const { message } = event.reason;
@@ -31,4 +34,4 @@ serviceWorker?.addEventListener('controllerchange', () =>
   window.location.reload(),
 );
 
-documentReady.then(() => render(<PageFrame />));
+documentReady.then(() => new DOMRenderer().render(<PageFrame />));

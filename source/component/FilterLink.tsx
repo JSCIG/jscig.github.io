@@ -1,6 +1,5 @@
-import { createCell } from 'web-cell';
-
-import { BadgeProps, Badge } from 'boot-cell/source/Reminder/Badge';
+import { FC } from 'web-cell';
+import { Badge, BadgeProps } from 'boot-cell';
 
 export interface FilterLinkProps extends BadgeProps {
   type?: 'anchor' | 'badge';
@@ -9,18 +8,18 @@ export interface FilterLinkProps extends BadgeProps {
   value: any;
 }
 
-export function FilterLink({
+export const FilterLink: FC<FilterLinkProps> = ({
   type = 'anchor',
   filter,
   value,
-  defaultSlot,
+  children,
   ...rest
-}: FilterLinkProps) {
+}) => {
   const Link = type === 'anchor' ? 'a' : Badge;
 
   return (
-    <Link {...rest} href={`proposals?${filter}=${value}`}>
-      {defaultSlot[0] ? defaultSlot : value}
+    <Link {...rest} href={`#proposals?${filter}=${value}`}>
+      {children}
     </Link>
   );
-}
+};

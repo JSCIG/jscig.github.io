@@ -1,7 +1,6 @@
 # JavaScript Chinese Interest Group
 
-[![NPM Dependency](https://david-dm.org/JSCIG/jscig.github.io.svg)][1]
-[![CI & CD](https://github.com/JSCIG/jscig.github.io/workflows/CI%20&%20CD/badge.svg)][2]
+[![CI & CD](https://github.com/JSCIG/jscig.github.io/actions/workflows/main.yml/badge.svg)][2]
 
 JavaScript 中文讨论组致力于提供一个加强中国 JavaScript 社区对 JavaScript 语言标准（ECMAScript）工作的参与的平台。
 
@@ -13,14 +12,15 @@ JavaScript 中文讨论组致力于提供一个加强中国 JavaScript 社区对
 
 ## 官网开发
 
-本网站是一个基于 [WebCell v2](https://web-cell.dev) 的纯 Web 前端项目，参与开发的基本命令如下：
+本网站是一个基于 [WebCell v3](https://web-cell.dev) 的纯 Web 前端项目，参与开发的基本命令如下：
 
 ```bash
 git clone https://github.com/JSCIG/jscig.github.io
 cd jscig.github.io
-npm install
+
+npm i pnpm -g
+pnpm i
 npm start
 ```
 
-[1]: https://david-dm.org/JSCIG/jscig.github.io
-[2]: https://github.com/JSCIG/jscig.github.io/actions
+[2]: https://github.com/JSCIG/jscig.github.io/actions/workflows/main.yml

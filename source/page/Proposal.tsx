@@ -1,22 +1,13 @@
-import {
-  component,
-  mixin,
-  watch,
-  attribute,
-  createCell,
-  Fragment
-} from 'web-cell';
-import { observer } from 'mobx-web-cell';
-import { formatDate } from 'web-utility/source/date';
+import { attribute, component, observer } from 'web-cell';
+import { computed, observable } from 'mobx';
+import { formatDate } from 'web-utility';
 import classNames from 'classnames';
 
-import { PageProps } from 'cell-router/source';
-import { Status } from 'boot-cell/source/utility/constant';
-import { SpinnerBox } from 'boot-cell/source/Prompt/Spinner';
-import { Table, TableRow } from 'boot-cell/source/Content/Table';
+import { PageProps } from 'cell-router';
+import { Status, SpinnerBox, Table } from 'boot-cell';
 
 import { FilterLink } from '../component/FilterLink';
-import style from './Proposal.less';
+import * as style from './Proposal.module.less';
 import { proposal, Proposal } from '../model';
 
 const StageMap = [
@@ -25,7 +16,7 @@ const StageMap = [
   Status.danger,
   Status.warning,
   Status.primary,
-  Status.success
+  Status.success,
 ];
 
 export interface ProposalPageProps extends PageProps {
@@ -34,39 +25,50 @@ export interface ProposalPageProps extends PageProps {
   champion?: string;
 }
 
+@component({ tagName: 'proposal-page' })
 @observer
-@component({
-  tagName: 'proposal-page',
-  renderTarget: 'children'
-})
-export class ProposalPage extends mixin<ProposalPageProps>() {
-  @attribute
-  @watch
-  stage?: number;
+export class ProposalPage extends HTMLElement {
+  declare props: ProposalPageProps;
 
   @attribute
-  @watch
-  author?: string;
+  @observable
+  accessor stage: number;
 
   @attribute
-  @watch
-  champion?: string;
+  @observable
+  accessor author: string;
+
+  @attribute
+  @observable
+  accessor champion: string;
+
+  @computed
+  get data() {
+    const { stage, author, champion } = this,
+      { list } = proposal;
+
+    return stage != null
+      ? list.filter(item => item.stage === stage)
+      : author
+        ? list.filter(({ authors }) => authors?.includes(author))
+        : champion
+          ? list.filter(({ champions }) => champions?.includes(champion))
+          : list;
+  }
 
   connectedCallback() {
     if (proposal.list.length < 1) proposal.getList();
-
-    super.connectedCallback();
   }
 
   renderHead() {
     const { sortKey } = proposal;
 
     return (
-      <TableRow type="head" className="text-nowrap">
+      <tr className="text-nowrap text-center">
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'stage' && 'bg-info'
+            sortKey === 'stage' && 'bg-info',
           )}
           onClick={() => (proposal.sortKey = 'stage')}
         >
@@ -75,7 +77,7 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'name' && 'bg-info'
+            sortKey === 'name' && 'bg-info',
           )}
           onClick={() => (proposal.sortKey = 'name')}
         >
@@ -86,7 +88,7 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'stargazers_count' && 'bg-info'
+            sortKey === 'stargazers_count' && 'bg-info',
           )}
           onClick={() => (proposal.sortKey = 'stargazers_count')}
           title="星标数"
@@ -96,7 +98,7 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'open_issues_count' && 'bg-info'
+            sortKey === 'open_issues_count' && 'bg-info',
           )}
           onClick={() => (proposal.sortKey = 'open_issues_count')}
           title="尚在讨论的问题数"
@@ -107,13 +109,13 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
         <th
           className={classNames(
             'user-select-none',
-            sortKey === 'meeting_at' && 'bg-info'
+            sortKey === 'meeting_at' && 'bg-info',
           )}
           onClick={() => (proposal.sortKey = 'meeting_at')}
         >
           最近会议记录
         </th>
-      </TableRow>
+      </tr>
     );
   }
 
@@ -128,14 +130,18 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             path="proposals"
             filter={filter}
             value={list[0]}
-          />
+          >
+            {list[0]}
+          </FilterLink>
         );
       default:
         return (
           <ul className="d-inline-block m-0 text-left">
             {list.map(author => (
-              <li>
-                <FilterLink path="proposals" filter={filter} value={author} />
+              <li key={author}>
+                <FilterLink path="proposals" filter={filter} value={author}>
+                  {author}
+                </FilterLink>
               </li>
             ))}
           </ul>
@@ -143,10 +149,16 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
     }
   }
 
-  renderNotes(notes: { date: string, url: string }[]) {
-    return notes.map(({ date, url }) => (
-      <a href={url}>{formatDate(date, 'YYYY年M月D日')}</a>
-    ))
+  renderNotes(notes: Proposal['notes']) {
+    return (
+      <ol>
+        {notes.map(({ date, url }) => (
+          <li key={url}>
+            <a href={url}>{formatDate(date, 'YYYY年M月D日')}</a>
+          </li>
+        ))}
+      </ol>
+    );
   }
 
   renderRow = ({
@@ -160,82 +172,68 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
     tests,
     notes,
     // pushed_at,
-  }: Proposal) => {
-    return (
-      <TableRow>
-        <td>
-          <FilterLink
+  }: Proposal) => (
+    <tr classList="align-middle">
+      <td>
+        <FilterLink
+          className="stretched-link"
+          type="badge"
+          // @ts-ignore
+          bg={StageMap[stage + 1]}
+          path="proposals"
+          filter="stage"
+          value={stage}
+        >
+          {stage < 0 ? '非活跃' : `阶段${stage}`}
+        </FilterLink>
+      </td>
+      <td>
+        {url ? (
+          <a className="stretched-link" target="_blank" href={url}>
+            {name}
+          </a>
+        ) : (
+          name
+        )}
+      </td>
+      <td>{authors && this.renderNames('author', authors)}</td>
+      <td>{champions && this.renderNames('champion', champions)}</td>
+      <td>
+        {stargazers_count != null && (
+          <a
             className="stretched-link"
-            type="badge"
-            color={StageMap[stage + 1]}
-            path="proposals"
-            filter="stage"
-            value={stage}
+            target="_blank"
+            href={url + '/stargazers'}
           >
-            {stage < 0 ? '非活跃' : `阶段${stage}`}
-          </FilterLink>
-        </td>
-        <td>
-          {url ? (
-            <a className="stretched-link" target="_blank" href={url}>
-              {name}
-            </a>
-          ) : (
-            name
-          )}
-        </td>
-        <td>{authors && this.renderNames('author', authors)}</td>
-        <td>{champions && this.renderNames('champion', champions)}</td>
-        <td>
-          {stargazers_count != null ? (
-            <a
-              className="stretched-link"
-              target="_blank"
-              href={url + '/stargazers'}
-            >
-              {stargazers_count}
-            </a>
-          ) : null}
-        </td>
-        <td>
-          {open_issues_count != null ? (
-            <a
-              className="stretched-link"
-              target="_blank"
-              href={url + '/issues'}
-            >
-              {open_issues_count}
-            </a>
-          ) : null}
-        </td>
-        <td>
-          {tests && (
-            <a
-              className="stretched-link text-success"
-              target="_blank"
-              href={tests}
-            >
-              √
-            </a>
-          )}
-        </td>
-        <td className="text-nowrap">
-          {notes && this.renderNotes(notes)}
-        </td>
-      </TableRow>
-    );
-  };
+            {stargazers_count}
+          </a>
+        )}
+      </td>
+      <td>
+        {open_issues_count != null && (
+          <a className="stretched-link" target="_blank" href={url + '/issues'}>
+            {open_issues_count}
+          </a>
+        )}
+      </td>
+      <td>
+        {tests && (
+          <a
+            className="stretched-link text-success"
+            target="_blank"
+            href={tests}
+          >
+            √
+          </a>
+        )}
+      </td>
+      <td className="text-nowrap">{notes && this.renderNotes(notes)}</td>
+    </tr>
+  );
 
-  render({ stage, author, champion }: ProposalPageProps) {
-    const { list, loading } = proposal;
-    const data =
-      stage != null
-        ? list.filter(item => item.stage === stage)
-        : author
-          ? list.filter(({ authors }) => authors?.includes(author))
-          : champion
-            ? list.filter(({ champions }) => champions?.includes(champion))
-            : list;
+  render() {
+    const { stage, author, champion, data } = this,
+      { loading } = proposal;
 
     return (
       <>
@@ -252,9 +250,10 @@ export class ProposalPage extends mixin<ProposalPageProps>() {
             </strong>{' '}
             个
           </p>
-          <Table center striped hover>
-            {this.renderHead()}
-            {data.map(this.renderRow)}
+          <Table striped hover responsive>
+            <thead>{this.renderHead()}</thead>
+
+            <tbody>{data.map(this.renderRow)}</tbody>
           </Table>
         </SpinnerBox>
       </>
