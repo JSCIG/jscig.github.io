@@ -48,6 +48,21 @@ const menu: NavMenu[] = [
   },
   { title: 'ES 6 学习', target: '_blank', href: 'http://es6-features.org/' },
   { title: '技术委员会', target: '_blank', href: 'https://tc39.es/' },
+  {
+    title: '标准补丁',
+    menu: [
+      {
+        title: '客户端自动加载',
+        target: '_blank',
+        href: 'https://polyfill.web-cell.dev/',
+      },
+      {
+        title: '服务端自动加载',
+        target: '_blank',
+        href: 'https://polyfiller.kaiyuanshe.cn/',
+      },
+    ],
+  },
 ];
 
 export const PageFrame: FC = () => (
@@ -57,33 +72,30 @@ export const PageFrame: FC = () => (
       expand="md"
       variant="dark"
       brand={
-        <>
+        <a className="text-light text-decoration-none" href="#">
           <img
             alt="JavaScript 中文兴趣组"
             src="https://github.com/JSCIG.png"
             style={{ width: '2rem', marginRight: '0.5rem' }}
           />
           JavaScript 中文兴趣组
-        </>
+        </a>
       }
     >
-      {menu.map(({ title, menu, href }) =>
+      {menu.map(({ title, menu, target, href }) =>
         !menu ? (
           <NavLink
             className="m-3 my-md-0 mx-md-3"
             key={href}
+            target={target}
             href={href?.startsWith('http') ? href : `#${href}`}
           >
             {title}
           </NavLink>
         ) : (
-          <NavDropdown
-            className="d-block m-3 my-md-0 mx-md-3"
-            key={title}
-            title={title}
-          >
-            {menu.map(({ href, title }) => (
-              <DropdownItem href={href}>{title}</DropdownItem>
+          <NavDropdown className="mx-3" key={title} title={title}>
+            {menu.map(({ target, href, title }) => (
+              <DropdownItem {...{ target, href }}>{title}</DropdownItem>
             ))}
           </NavDropdown>
         ),
