@@ -131,7 +131,7 @@ export class MainPage extends HTMLElement {
     return (
       <>
         <Jumbotron
-          className="my-5 text-center"
+          className="my-5 p-5 text-center"
           title={
             <span className="text-nowrap">
               JavaScript&nbsp;
@@ -169,14 +169,19 @@ export class MainPage extends HTMLElement {
 
         <h2 className="my-5 text-center">TC39 中国会员</h2>
 
-        <section className="row">
+        <section className="row align-items-center">
           {organizations.map(({ link, logo, name }) => (
             <a
               className="d-flex col-12 col-sm-4 col-md-3 my-3 flex-column justify-content-between align-items-center text-decoration-none"
               target="_blank"
               href={link}
             >
-              <Image fluid title={name} src={logo} />
+              <Image
+                className="w-100 object-fit-contain"
+                style={{ height: '5rem' }}
+                title={name}
+                src={logo}
+              />
             </a>
           ))}
           <footer className="col-12 text-center">
