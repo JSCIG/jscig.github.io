@@ -10,6 +10,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "dom-renderer",
     "lib": ["ES2023", "DOM"],
+    "skipLibCheck": true
   },
-  "include": ["source/**/*"],
+  "include": ["source/**/*"]
 }

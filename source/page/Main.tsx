@@ -193,13 +193,13 @@ export class MainPage extends HTMLElement {
 
         <h2 className="my-5 text-center">JSCIG 成员</h2>
 
-        <SpinnerBox className="row" cover={member.loading}>
+        <SpinnerBox className="row" cover={member.downloading > 0}>
           {member.list.map(this.renderMember)}
         </SpinnerBox>
 
         <h2 className="my-5 text-center">TC39 既成提案</h2>
 
-        <SpinnerBox className="row" cover={proposal.loading}>
+        <SpinnerBox className="row" cover={proposal.downloading > 0}>
           {proposal.finishedList.map(this.renderProposal)}
         </SpinnerBox>
       </>

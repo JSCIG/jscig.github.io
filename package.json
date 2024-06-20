@@ -14,16 +14,17 @@
     "pack-dist": "npm run clean && parcel build source/index.html --public-url .",
     "pack-sw": "rm -f dist/sw.js.map && workbox generateSW",
     "start": "npm run clean && parcel source/index.html --open",
-    "test": "lint-staged"
+    "test": "lint-staged && tsc --noEmit"
   },
   "dependencies": {
     "boot-cell": "^2.0.0-beta.29",
     "browser-unhandled-rejection": "^1.0.2",
-    "cell-router": "^3.0.0-rc.7",
+    "cell-router": "^3.0.0-rc.8",
     "classnames": "^2.5.1",
     "dom-renderer": "^2.1.8",
     "koajax": "^1.1.2",
     "mobx": "^6.12.4",
+    "mobx-restful": "^1.0.0",
     "web-cell": "^3.0.0-rc.16",
     "web-utility": "^4.4.0"
   },
@@ -33,14 +34,14 @@
     "@parcel/transformer-less": "2.12.0",
     "@parcel/transformer-typescript-tsc": "~2.12.0",
     "@parcel/transformer-webmanifest": "~2.12.0",
-    "@types/node": "^18.19.36",
+    "@types/node": "^18.19.37",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "parcel": "~2.12.0",
     "postcss": "^8.4.38",
     "postcss-modules": "^4.3.1",
     "prettier": "^3.3.2",
-    "typescript": "~5.4.5",
+    "typescript": "~5.5.2",
     "workbox-cli": "^7.1.0"
   }
 }

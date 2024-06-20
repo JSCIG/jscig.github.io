@@ -10,7 +10,7 @@ export const topMenu: NavMenu[] = [
   {
     title: '中文讨论',
     target: '_blank',
-    href: 'https://github.com/JSCIG/es-discuss/discussions',
+    href: 'https://github.com/orgs/JSCIG/discussions',
   },
   { title: '开放组织', target: '_blank', href: 'https://github.com/JSCIG' },
   {
@@ -43,7 +43,11 @@ export const topMenu: NavMenu[] = [
     target: '_blank',
     href: 'https://compat-table.github.io/compat-table/es6/',
   },
-  { title: 'ES 6 学习', target: '_blank', href: 'http://es6-features.org/' },
+  {
+    title: 'ES 6 学习',
+    target: '_blank',
+    href: 'https://rse.github.io/es6-features/',
+  },
   { title: '技术委员会', target: '_blank', href: 'https://tc39.es/' },
   {
     title: '标准补丁',

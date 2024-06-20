@@ -1,4 +1,5 @@
 import { observable, reaction } from 'mobx';
+import { BaseModel, toggle } from 'mobx-restful';
 
 import { service } from './service';
 import { Member } from './Member';
@@ -34,29 +35,27 @@ export type ProposalSortKey =
   | `${'stargazers' | 'open_issues'}_count`
   | 'meeting_at';
 
-export class ProposalModel {
-  @observable
-  accessor loading = false;
-
+export class ProposalModel extends BaseModel {
   @observable
   accessor list: Proposal[] = [];
 
   @observable
-  accessor sortKey: ProposalSortKey;
+  accessor sortKey: ProposalSortKey | undefined;
 
   @observable
   accessor finishedList: Proposal[] = [];
 
   constructor() {
+    super();
+
     reaction(
       () => this.sortKey,
       key => this.sortBy(key),
     );
   }
 
+  @toggle('downloading')
   async getList() {
-    this.loading = true;
-
     const { body } = await service.get<Proposal[]>(
       'dataset/proposals.min.json',
     );
@@ -76,8 +75,6 @@ export class ProposalModel {
         },
         [[], []] as Proposal[][],
       );
-
-    this.loading = false;
 
     return (this.finishedList = finished), (this.list = processing);
   }

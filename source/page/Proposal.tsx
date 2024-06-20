@@ -179,7 +179,7 @@ export class ProposalPage extends HTMLElement {
           className="stretched-link"
           type="badge"
           // @ts-ignore
-          bg={StageMap[stage + 1]}
+          bg={StageMap[stage + 1] || 'dark'}
           path="proposals"
           filter="stage"
           value={stage}
@@ -232,14 +232,13 @@ export class ProposalPage extends HTMLElement {
   );
 
   render() {
-    const { stage, author, champion, data } = this,
-      { loading } = proposal;
+    const { stage, author, champion, data } = this;
 
     return (
       <>
         <h1 className="text-center py-3">ECMAScript 标准提案</h1>
 
-        <SpinnerBox className={style.box} cover={loading}>
+        <SpinnerBox className={style.box} cover={proposal.downloading > 0}>
           <p className="text-center text-muted">
             {stage != null ? `处于 Stage ${stage} 的` : null}
             {author && `${author} 提交的`}
