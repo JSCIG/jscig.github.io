@@ -1,0 +1,1 @@
+{"mappings":"ACAA","sources":["index.fc382b6a.css","source/page/Proposal.module.less"],"sourcesContent":[".box_5be125 tbody td {\n  position: relative;\n}\n/*# sourceMappingURL=index.fc382b6a.css.map */\n",".box :global tbody td {\n  position: relative;\n}\n"],"names":[],"version":3,"file":"index.fc382b6a.css.map"}
