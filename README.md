@@ -10,6 +10,9 @@ JavaScript 中文讨论组致力于提供一个加强中国 JavaScript 社区对
 
 - [讨论](https://github.com/JSCIG/es-discuss/discussions)
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)][3]
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)][4]
+
 ## 官网开发
 
 本网站是一个基于 [WebCell v3](https://web-cell.dev) 的纯 Web 前端项目，参与开发的基本命令如下：
@@ -24,3 +27,5 @@ npm start
 ```
 
 [2]: https://github.com/JSCIG/jscig.github.io/actions/workflows/main.yml
+[3]: https://codespaces.new/JSCIG/jscig.github.io
+[4]: https://gitpod.io/?autostart=true#https://github.com/JSCIG/jscig.github.io
