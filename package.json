@@ -21,12 +21,13 @@
     "browser-unhandled-rejection": "^1.0.2",
     "cell-router": "^3.0.0-rc.8",
     "classnames": "^2.5.1",
-    "dom-renderer": "^2.1.8",
-    "koajax": "^1.1.2",
-    "mobx": "^6.12.4",
-    "mobx-restful": "^1.0.0",
-    "web-cell": "^3.0.0-rc.16",
-    "web-utility": "^4.4.0"
+    "dom-renderer": "^2.4.4",
+    "iterable-observer": "^1.1.0",
+    "koajax": "^3.0.3",
+    "mobx": "^6.13.5",
+    "mobx-restful": "^2.0.0",
+    "web-cell": "^3.0.1",
+    "web-utility": "^4.4.2"
   },
   "devDependencies": {
     "@parcel/config-default": "~2.12.0",
@@ -34,14 +35,14 @@
     "@parcel/transformer-less": "2.12.0",
     "@parcel/transformer-typescript-tsc": "~2.12.0",
     "@parcel/transformer-webmanifest": "~2.12.0",
-    "@types/node": "^18.19.37",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.7",
+    "@types/node": "^20.17.6",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "parcel": "~2.12.0",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.48",
     "postcss-modules": "^4.3.1",
-    "prettier": "^3.3.2",
-    "typescript": "~5.5.2",
-    "workbox-cli": "^7.1.0"
+    "prettier": "^3.3.3",
+    "typescript": "~5.6.3",
+    "workbox-cli": "^7.3.0"
   }
 }
