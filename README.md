@@ -12,6 +12,7 @@ JavaScript 中文讨论组致力于提供一个加强中国 JavaScript 社区对
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)][3]
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)][4]
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)][5]
 
 ## 官网开发
 
@@ -29,3 +30,4 @@ npm start
 [2]: https://github.com/JSCIG/jscig.github.io/actions/workflows/main.yml
 [3]: https://codespaces.new/JSCIG/jscig.github.io
 [4]: https://gitpod.io/?autostart=true#https://github.com/JSCIG/jscig.github.io
+[5]:https://app.codeanywhere.com/#https://github.com/JSCIG/jscig.github.io
