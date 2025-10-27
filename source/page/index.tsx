@@ -1,19 +1,13 @@
 import { FC } from 'web-cell';
 import { createRouter } from 'cell-router';
-import {
-  Container,
-  OffcanvasNavbar,
-  NavLink,
-  NavDropdown,
-  DropdownItem,
-} from 'boot-cell';
+import { OffcanvasNavbar, NavLink, NavDropdown, DropdownItem } from 'boot-cell';
 
 import { topMenu } from '../data/navigator-menu';
 import { MainPage } from './Main';
 import { ProposalPage } from './Proposal';
 import { OrganizationPage } from './Organization';
 
-const { Route } = createRouter();
+const { Router, Route } = createRouter();
 
 export const PageFrame: FC = () => (
   <>
@@ -52,11 +46,11 @@ export const PageFrame: FC = () => (
       )}
     </OffcanvasNavbar>
 
-    <Container>
+    <Router className="container">
       <Route path="" component={MainPage} />
       <Route path="proposals" component={ProposalPage} />
       <Route path="members" component={OrganizationPage} />
-    </Container>
+    </Router>
 
     <footer className="text-center bg-light py-5">
       <img

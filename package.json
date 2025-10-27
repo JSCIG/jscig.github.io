@@ -17,32 +17,40 @@
     "test": "lint-staged && tsc --noEmit"
   },
   "dependencies": {
-    "boot-cell": "^2.0.0-beta.29",
+    "boot-cell": "^2.0.0-rc.19",
     "browser-unhandled-rejection": "^1.0.2",
-    "cell-router": "^3.0.0-rc.8",
+    "cell-router": "^4.0.4",
     "classnames": "^2.5.1",
-    "dom-renderer": "^2.4.4",
+    "dom-renderer": "^2.6.2",
     "iterable-observer": "^1.1.0",
-    "koajax": "^3.0.3",
-    "mobx": "^6.13.5",
-    "mobx-restful": "^2.0.0",
-    "web-cell": "^3.0.1",
-    "web-utility": "^4.4.2"
+    "koajax": "^3.1.2",
+    "mobx": "^6.15.0",
+    "mobx-restful": "^2.1.4",
+    "web-cell": "^3.2.2",
+    "web-utility": "^4.6.3"
   },
   "devDependencies": {
-    "@parcel/config-default": "~2.12.0",
-    "@parcel/packager-raw-url": "~2.12.0",
-    "@parcel/transformer-less": "2.12.0",
-    "@parcel/transformer-typescript-tsc": "~2.12.0",
-    "@parcel/transformer-webmanifest": "~2.12.0",
-    "@types/node": "^20.17.6",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "parcel": "~2.12.0",
-    "postcss": "^8.4.48",
-    "postcss-modules": "^4.3.1",
-    "prettier": "^3.3.3",
-    "typescript": "~5.6.3",
+    "@parcel/config-default": "~2.16.0",
+    "@parcel/packager-raw-url": "~2.16.0",
+    "@parcel/transformer-less": "2.16.0",
+    "@parcel/transformer-typescript-tsc": "~2.16.0",
+    "@parcel/transformer-webmanifest": "~2.16.0",
+    "@types/node": "^22.18.12",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "parcel": "~2.16.0",
+    "postcss": "^8.5.6",
+    "postcss-modules": "^6.0.1",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
     "workbox-cli": "^7.3.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "lmdb",
+      "msgpackr-extract"
+    ]
   }
 }
